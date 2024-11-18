@@ -923,6 +923,7 @@
       "RevOnRental.Domain/1.0.0": {
         "dependencies": {
           "Microsoft.AspNet.Identity.EntityFramework": "2.2.4",
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "Microsoft.EntityFrameworkCore": "7.0.20",
           "Microsoft.Extensions.Identity.Stores": "7.0.20",
           "Microsoft.IdentityModel.Tokens": "6.35.0"

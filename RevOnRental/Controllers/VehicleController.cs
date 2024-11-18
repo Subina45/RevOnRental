@@ -38,7 +38,7 @@ namespace RevOnRental.Controllers
 
         // POST: api/vehicle/add
         [HttpPost("add")]
-        public async Task<IActionResult> AddVehicle([FromBody] AddVehicleCommand vehicle)
+        public async Task<IActionResult> AddVehicle([FromForm] AddVehicleCommand vehicle)
         {
             try
             {

@@ -3,20 +3,26 @@ using RevOnRental.Application.Services;
 using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Domain.Models;
+using RevOnRental.Application.Services.Users.Command;
+using RevOnRental.Application.Dtos.Auth;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RevOnRental.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService )//, UpdateUser updateUser)
         {
             _authService = authService;
+            //_updateUser = updateUser;
         }
 
+        [AllowAnonymous]
         // Register User
         [HttpPost("register/user")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto model)
@@ -33,6 +39,7 @@ namespace RevOnRental.Controllers
             return BadRequest(result.Errors);
         }
 
+        [AllowAnonymous]
         // Register Business
         [HttpPost("register/business")]
         public async Task<IActionResult> RegisterBusiness([FromBody] RegisterBusinessDto model)
@@ -67,18 +74,45 @@ namespace RevOnRental.Controllers
             return Ok(result);
         }
 
-        
 
+        [AllowAnonymous]
         // Login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
-            var result = await _authService.LoginAsync(model);
-            if (result.Succeeded)
+            try
             {
-                return Ok("Login successful");
+                var result = await _authService.LoginAsync(model);
+                return Ok(result);
             }
-            return Unauthorized("Invalid credentials");
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
+        }
+        //updateUser
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto updateUserDto)
+        {
+            try
+            {
+                var isUpdated = await _authService.UpdateUserAsync(userId, updateUserDto);
+                if (isUpdated)
+                {
+                    return Ok("User information updated successfully.");
+                }
+
+                return BadRequest("Failed to update user information.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 
