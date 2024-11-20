@@ -45,6 +45,7 @@ C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Microsoft.Op
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll

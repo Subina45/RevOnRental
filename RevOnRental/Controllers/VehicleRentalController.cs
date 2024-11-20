@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RevOnRental.Application.Dtos;
+using RevOnRental.Application.Dtos.BusinessDashboard;
+using RevOnRental.Application.Dtos.BusinessDetails;
 using RevOnRental.Application.Services.Businesses.Queries;
+using RevOnRental.Application.Services.RentalBooking.Command;
+using RevOnRental.Application.Services.Vehicles.Queries;
 using RevOnRental.Domain.Enums;
 using RevOnRental.Domain.Models;
 using System.Numerics;
@@ -11,24 +15,44 @@ namespace RevOnRental.Controllers
     [Route("api/[controller]")]
     public class VehicleRentalController : BaseController
     {
-       
-
         [HttpGet("search")]
-        public async Task<ActionResult<List<VehicleAvailabilityDto>>> SearchAvailableVehicles(VehicleType vehicleType, TimeEnum rentalTime)
+        public async Task<ActionResult<List<VehicleAvailabilityDto>>> SearchAvailableVehicles([FromBody] SearchAvailableVehiclesQuery requestDto)
         {
-            var query = new SearchAvailableVehiclesQuery(vehicleType, rentalTime);
-            var availableVehicles = await Mediator.Send(query);
+
+            var availableVehicles = await Mediator.Send(requestDto);
             return Ok(availableVehicles);
         }
 
-        [HttpGet("business/{businessId}")]
-        public async Task<ActionResult<BusinessDto>> GetBusinessDetails(int businessId)
+        [HttpGet("business-details/{businessId}")]
+        public async Task<ActionResult<BusinessDetailsDto>> GetBusinessDetails(int businessId)
         {
-            var result = await Mediator.Send(new GetBusinessDetailsQuery { BusinessId = businessId });
+            var query = new GetBusinessDetailsQuery{ BusinessId=businessId};
+            var businessDetails = await Mediator.Send(query);
+            return Ok(businessDetails);
+        }
 
-            //var query = new GetBusinessDetailsQuery{ BusinessId=businessId};
-            //var businessDetails = await Mediator.Send(query);
-            return Ok(result);
+        [HttpPost("rent-vehicle")]
+        public async Task<ActionResult<int>> RentVehicle([FromBody] CreateRentalCommand rentalDto)
+        {
+            var rentalId = await Mediator.Send(rentalDto);
+            return Ok(rentalId);
+        }
+
+        [HttpGet("business-dashboard/{businessId}")]
+        public async Task<ActionResult<BusinessDashboardDto>> GetBusinessDashboard(int businessId)
+        {
+            var query = new GetBusinessDashboardQuery { BusinessId= businessId };
+            var dashboardData = await Mediator.Send(query);
+            return Ok(dashboardData);
+        }
+
+
+
+        [HttpGet("vehicle-type-details")]
+        public async Task<ActionResult<List<VehicleTypeDetailsDto>>> GetVehicleTypeDetails(GetVehicleTypeDetailsQuery requestDto)
+        {
+            var vehicleTypeDetails = await Mediator.Send(requestDto);
+            return Ok(vehicleTypeDetails);
         }
     }
 }

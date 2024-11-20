@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.RentalBooking.Queries;
 
 namespace RevOnRental.Controllers
@@ -7,17 +8,18 @@ namespace RevOnRental.Controllers
     [Route("api/[controller]")]
     public class RentalBookingController : BaseController
     {
-        private readonly RentalHistory _rentalHistory;
+        private readonly IRentalBooking _rentalBooking;
 
-        public RentalBookingController(RentalHistory rentalHistory)
+        public RentalBookingController(IRentalBooking rentalBooking)
         {
-            _rentalHistory = rentalHistory;
+            _rentalBooking = rentalBooking;
+            
         }
 
         [HttpGet("business/{businessId}")]
         public async Task<IActionResult> GetRentalsByBusiness(int businessId)
         {
-            var rentals = await _rentalHistory.GetRentalsByBusinessIdAsync(businessId);
+            var rentals = await _rentalBooking.GetRentalsByBusinessIdQuery(businessId);
             if (rentals == null || !rentals.Any())
             {
                 return NotFound("No rentals found for the specified business.");
@@ -30,7 +32,7 @@ namespace RevOnRental.Controllers
         {
             try
             {
-                var rentals = await _rentalHistory.GetUserBookingHistoryAsync(userId);
+                var rentals = await _rentalBooking.GetUserBookingHistoryQuery(userId);
                 if (rentals == null || !rentals.Any())
                 {
                     return NotFound("No booking history found for the specified user.");

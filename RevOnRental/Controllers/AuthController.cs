@@ -7,6 +7,7 @@ using RevOnRental.Application.Services.Users.Command;
 using RevOnRental.Application.Dtos.Auth;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using RevOnRental.Application.Services.Businesses.Command;
 
 namespace RevOnRental.Controllers
 {
@@ -45,6 +46,7 @@ namespace RevOnRental.Controllers
         public async Task<IActionResult> RegisterBusiness([FromBody] RegisterBusinessDto model)
         {
             var result = await _authService.RegisterBusinessAsync(model);
+           
             if (result.Succeeded)
             {
                 return Ok("Business registered successfully");

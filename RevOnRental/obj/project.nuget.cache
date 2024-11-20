@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+4SkEFRoB8xo8T/BiPiCZiYULLHhXsgAn1D6IUXpUqhQbhtN5g7F50kq/BikG3tXQShTuh9dWPvfWWSm0AH30Q==",
+  "dgSpecHash": "t/aI+j/gqjUr0w6dxWIjh4Ani8xr0+XQA4nP4xZDuOMYBzpCKWmWKomWrBONu2gQXwpeyKw6YOEMpakzMcWciQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental\\RevOnRental.csproj",
   "expectedPackageFiles": [
@@ -76,6 +76,7 @@
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\subin\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
