@@ -18,6 +18,7 @@ namespace RevOnRental.Application.Interfaces
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<UserBusiness> UserBusiness { get; set; }
+        public DbSet<BusinessDocument> BusinesseDocuments { get; set; }
 
         public DbSet<ReviewRating> ReviewRatings { get; set; }
         int SaveChanges();

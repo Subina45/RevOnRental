@@ -30,6 +30,7 @@ namespace RevOnRental.Infrastructure.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ReviewRating> ReviewRatings { get; set; }
         public DbSet<UserBusiness> UserBusiness { get; set; }
+        public DbSet<BusinessDocument> BusinesseDocuments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

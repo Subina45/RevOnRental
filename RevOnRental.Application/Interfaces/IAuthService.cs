@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RevOnRental.Application.Dtos;
+using RevOnRental.Application.Dtos.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,10 @@ namespace RevOnRental.Application.Interfaces
     {
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto registerUserDto);
         Task<IdentityResult> RegisterBusinessAsync(RegisterBusinessDto registerBusinessDto);
-        Task<SignInResult> LoginAsync(LoginDto loginDto);
+        Task<AuthenticationOutputDto> LoginAsync(LoginDto loginDto);
         Task<bool> CreateRole(RoleDto roleDto);
         Task<List<RoleDto>> GelAllRole();
+        Task<bool> UpdateUserAsync(int userId, UpdateUserDto updateUserDto);
+        
     }
 }

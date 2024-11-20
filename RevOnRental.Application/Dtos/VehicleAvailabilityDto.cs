@@ -9,7 +9,10 @@ namespace RevOnRental.Application.Dtos
     public class VehicleAvailabilityDto
     {
         public string BusinessName { get; set; }
-        
-        
+        public double Rating { get; set; }
+        public double Distance { get; set; }
+        public string RentalTimeCategory { get; set; }
+
+
     }
 }

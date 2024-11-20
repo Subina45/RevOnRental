@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using RevOnRental.Application.Dtos;
+using RevOnRental.Application.Dtos.Auth;
+using RevOnRental.Application.Exceptions;
 using RevOnRental.Application.Interfaces;
+using RevOnRental.Application.Services.Businesses.Command;
 using RevOnRental.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -16,12 +20,17 @@ namespace RevOnRental.Application.Services.Users.Command
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IAppDbContext _appDbContext;
+        private readonly IJwtService _jwtService;
+        private readonly IMediator _mediator;
 
-        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IAppDbContext appDbContext)
+        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IAppDbContext appDbContext,
+            IJwtService jwtService, IMediator mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _appDbContext = appDbContext;
+            _jwtService = jwtService;
+            _mediator = mediator;
         }
 
         // User Registration
@@ -43,6 +52,8 @@ namespace RevOnRental.Application.Services.Users.Command
                     LastName = registerUserDto.LastName,
                     ContactNumber = registerUserDto.ContactNumber,
                     Address = registerUserDto.Address,
+                    Latitude=registerUserDto.Latitude,
+                    Longitude=registerUserDto.Longitude,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 };
@@ -74,7 +85,9 @@ namespace RevOnRental.Application.Services.Users.Command
                 FirstName = registerBusinessDto.FirstName,
                 LastName = registerBusinessDto.LastName,
                 ContactNumber = registerBusinessDto.ContactNumber,
-                Address = registerBusinessDto.Address
+                Address = registerBusinessDto.Address,
+                Latitude = registerBusinessDto.Latitude,
+                Longitude = registerBusinessDto.Longitude
             };
 
             var result = await _userManager.CreateAsync(user, registerBusinessDto.Password);
@@ -90,8 +103,19 @@ namespace RevOnRental.Application.Services.Users.Command
                     BusinessType = registerBusinessDto.BusinessType
 
                 };
-                await _appDbContext.Businesses.AddAsync(business);
+                var documents = new AddBusinessDocumentCommand
+                {
+                    Bluebook = registerBusinessDto.Bluebook,
+                    BusinessId = business.Id,
+                    BusinessRegistrationDocument = registerBusinessDto.BusinessRegistrationDocument,
+                    NationalIdBack = registerBusinessDto.NationalIdBack,
+                    NationalIdFront = registerBusinessDto.NationalIdFront,
+                };
+                await _mediator.Send(documents);
+                var ent=await _appDbContext.Businesses.AddAsync(business);
                 await _appDbContext.SaveChangesAsync();
+
+
 
                 var userBusiness = new UserBusiness
                 {
@@ -108,15 +132,78 @@ namespace RevOnRental.Application.Services.Users.Command
         }
 
         // Login Method
-        public async Task<SignInResult> LoginAsync(LoginDto loginDto)
+        public async Task<AuthenticationOutputDto> LoginAsync(LoginDto loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            if (user != null)
+            try
             {
-                return await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);
+
+                var claimsIdentity = await GetClaimsIdentityAsync(loginDto.Email, loginDto.Password);
+                var authenticationOutput = await _jwtService.GenerateJwt(claimsIdentity);
+
+                return authenticationOutput;
             }
-            return SignInResult.Failed;
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
+
+        /// <summary>
+        /// Verifies user credentials and returns claim list asynchronously.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        private async Task<AppUserDto> GetClaimsIdentityAsync(string email, string password)
+        {
+            try
+            {
+                User appUser = await _userManager.FindByEmailAsync(email);
+                if (appUser is null)
+                {
+                    throw new CustomException($"No Accounts Registered with {email}.");
+                }
+                else
+                {
+                    return await VerifyUserNamePasswordAsync(password, appUser, new AppUserDto { Id = appUser.Id, Email = appUser.Email});
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Verifies username and password and returns claim list asynchronously.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="userToVerify"></param>
+        /// <param name="userDetails"></param>
+        /// <returns></returns>
+        private async Task<AppUserDto> VerifyUserNamePasswordAsync(string password, User userToVerify, AppUserDto userDetails)
+        {
+            if (await _userManager.CheckPasswordAsync(userToVerify, password))
+            {
+                var userRole = await _appDbContext.UserRoles.Where(x => x.UserId == userToVerify.Id).FirstOrDefaultAsync();
+                var claimDTO = new ClaimDto
+                {
+                    Id = userToVerify.Id,
+                    Email = userToVerify.Email,
+                    //IsAdmin = await _userQueryService.CheckUserAdminAsync(userToVerify.Id),
+                    Role = (await GetRoleById(userRole.RoleId)).Name,
+                    
+                    FullName = userToVerify.FullName
+                };
+                userDetails.ClaimsIdentity = await Task.FromResult(_jwtService.GenerateClaimsIdentity(claimDTO));
+                return userDetails;
+            }
+
+            throw new CustomException("Invalid email or password.");
+        }
+
 
         public async Task<bool> CreateRole(RoleDto roleDto)
         {
@@ -139,5 +226,42 @@ namespace RevOnRental.Application.Services.Users.Command
             }).ToList();
             return roles;
         }
+        public async Task<RoleDto> GetRoleById(int Id)
+        {
+
+            var role =await  _appDbContext.Roles.Where(x=>x.Id==Id).Select(x => new RoleDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).FirstOrDefaultAsync();
+            return role;
+        }
+
+        public async Task<bool> UpdateUserAsync(int userId, UpdateUserDto updateUserDto)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
+
+            // Update user information
+            user.FirstName = updateUserDto.FirstName ?? user.FirstName;
+            user.LastName = updateUserDto.LastName ?? user.LastName;
+            user.ContactNumber = updateUserDto.ContactNumber ?? user.ContactNumber;
+            user.Address = updateUserDto.Address ?? user.Address;
+
+            // Update the user in the database
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Failed to update user: {errors}");
+            }
+
+            return true;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using RevOnRental.Domain.Common;
+﻿using Microsoft.AspNetCore.Http;
+using RevOnRental.Domain.Common;
 using RevOnRental.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,11 @@ namespace RevOnRental.Domain.Models
         public string Model { get; set; }
         public string Brand { get; set; }
         public int NumberOfVehicle { get; set; }
+        public int NumberOfAvailableVehicle { get; set; }
+        public string FileName { get; set; }
+        public string ContentType { get; set; }
+        public byte[] FileContent { get; set; } // Store file content as byte array
+        public DateTime UploadedDate { get; set; }
         public bool AvailabilityStatus { get; set; } // True if available
         public Business Business { get; set; }
         public RentalCharge RentalCharges { get; set; }

@@ -16,10 +16,10 @@ namespace RevOnRental.Domain.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal TotalPrice { get; set; }
-        public string RentalStatus { get; set; } // Pending, Active, Completed, Cancelled
+        public RentalStatusType RentalStatus { get; set; } // Pending, Active, Completed, Cancelled
         public virtual User User { get; set; }
         public virtual Vehicle Vehicle { get; set; }
-        public DateTime CreatedDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime UpdatedDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

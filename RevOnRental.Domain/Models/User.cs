@@ -12,8 +12,12 @@ namespace RevOnRental.Domain.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName
+        { get { return (this.FirstName + " " + this.LastName).Trim(); } }
         public string ContactNumber { get; set; }
         public string Address { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public virtual UserBusiness UserBusiness { get; set; }
 
         public virtual ICollection<Rental> Rentals { get; set; }

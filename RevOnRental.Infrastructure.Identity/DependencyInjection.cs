@@ -79,7 +79,7 @@ namespace RevOnRental.Infrastructure.Identity
             .AddDefaultTokenProviders();
 
 
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IJwtService, JwtService>();
 
 
 

@@ -25,6 +25,8 @@ namespace RevOnRental.Application.Test.Users
         private Mock<SignInManager<User>> _signInManagerMock;
         private Mock<IAppDbContext> _appDbContextMock;
         private AuthService _authService;
+        private Mock<IJwtService> _jwtServiceMock;
+        private Mock<IMediator> _mediatorMock;
 
         [SetUp]
         public void Setup()
@@ -58,9 +60,10 @@ namespace RevOnRental.Application.Test.Users
 
             // Mock the application database context
             _appDbContextMock = new Mock<IAppDbContext>();
-
+            _jwtServiceMock = new Mock<IJwtService>();
+            _mediatorMock= new Mock<IMediator>();
             // Instantiate AuthService with the mocked dependencies
-            _authService = new AuthService(_userManagerMock.Object, _signInManagerMock.Object, _appDbContextMock.Object);
+            _authService = new AuthService(_userManagerMock.Object, _signInManagerMock.Object, _appDbContextMock.Object, _jwtServiceMock.Object, _mediatorMock.Object);
         }
 
         [Test]

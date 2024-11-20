@@ -26,6 +26,10 @@ namespace RevOnRental.Infrastructure.Configuration
             builder.HasMany(b => b.Vehicles)
                 .WithOne(v => v.Business)
                 .HasForeignKey(v => v.BusinessID);
+
+            builder.HasMany(b => b.BusinessDocuments)
+               .WithOne(v => v.Business)
+               .HasForeignKey(v => v.BusinessId);
         }
     }
 }

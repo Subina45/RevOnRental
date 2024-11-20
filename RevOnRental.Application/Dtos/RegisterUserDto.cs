@@ -22,6 +22,7 @@ namespace RevOnRental.Application.Dtos
         public string Password { get; set; }
         public string ContactNumber { get; set; }
         public string Address { get; set; }
-        public string Role { get; set; } // Optional if you have user roles like "User" or "Business"
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

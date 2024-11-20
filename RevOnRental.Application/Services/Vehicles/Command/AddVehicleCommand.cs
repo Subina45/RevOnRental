@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.Businesses.Queries;
@@ -19,6 +20,7 @@ namespace RevOnRental.Application.Services.Vehicles.Command
         public string Model { get; set; }
         public string Brand { get; set; }
         public int NumberOfVehicle { get; set; }
+        public IFormFile Photo { get; set; }
 
         public bool AvailabilityStatus { get; set; }
         public float HourlyRate { get; set; }
@@ -37,6 +39,8 @@ namespace RevOnRental.Application.Services.Vehicles.Command
 
         public async Task<bool> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
+            using var memoryStreamVehiclephoto = new MemoryStream();
+            await request.Photo.CopyToAsync(memoryStreamVehiclephoto);
             var vehicles = new Vehicle
             {
                 BusinessID = request.BusinessId,
@@ -50,7 +54,11 @@ namespace RevOnRental.Application.Services.Vehicles.Command
                     HourlyRate = request.HourlyRate,
                     FullDayRate = request.FullDayRate,
                     HalfDayRate = request.HalfDayRate,
-                }
+                },
+                FileName = request.Photo.FileName,
+                ContentType = request.Photo.ContentType,
+                FileContent = memoryStreamVehiclephoto.ToArray(),
+                UploadedDate = DateTime.Now,
             };
             await _context.Vehicles.AddAsync(vehicles);
             await _context.SaveChangesAsync();
