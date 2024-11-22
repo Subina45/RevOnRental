@@ -16,11 +16,9 @@ namespace RevOnRental.Infrastructure.Configuration
             builder.HasKey(b => b.Id);
 
             builder.Property(b => b.BusinessName)
-                .IsRequired()
                 .HasMaxLength(100);
 
             builder.Property(b => b.BusinessRegistrationNumber)
-                .IsRequired()
                 .HasMaxLength(50);
 
             builder.HasMany(b => b.Vehicles)
