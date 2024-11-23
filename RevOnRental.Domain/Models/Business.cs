@@ -12,11 +12,11 @@ namespace RevOnRental.Domain.Models
     public class Business : IBaseEntity
     {
         public int Id { get; set; }
-        public string BusinessName { get; set; }
-        public string BusinessRegistrationNumber { get; set; }
+        public string? BusinessName { get; set; }
+        public string? BusinessRegistrationNumber { get; set; }
         public BusinessType BusinessType { get; set; }
         public bool IsApproved { get; set; }
-        public string VehiclePlateNumber  { get; set; }
+        public string? VehiclePlateNumber  { get; set; }
         public int TotalRating { get; set; }
         public decimal AverageRating { get; set; }
         public virtual UserBusiness UserBusiness { get; set; }

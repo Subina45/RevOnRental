@@ -103,6 +103,8 @@ namespace RevOnRental.Application.Services.Users.Command
                     BusinessType = registerBusinessDto.BusinessType
 
                 };
+                var ent = await _appDbContext.Businesses.AddAsync(business);
+                await _appDbContext.SaveChangesAsync();
                 var documents = new AddBusinessDocumentCommand
                 {
                     Bluebook = registerBusinessDto.Bluebook,
@@ -112,8 +114,7 @@ namespace RevOnRental.Application.Services.Users.Command
                     NationalIdFront = registerBusinessDto.NationalIdFront,
                 };
                 await _mediator.Send(documents);
-                var ent=await _appDbContext.Businesses.AddAsync(business);
-                await _appDbContext.SaveChangesAsync();
+                
 
 
 
@@ -187,14 +188,17 @@ namespace RevOnRental.Application.Services.Users.Command
         {
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
             {
-                var userRole = await _appDbContext.UserRoles.Where(x => x.UserId == userToVerify.Id).FirstOrDefaultAsync();
+                
+
+                // Fetch roles for the user
+                var roles = (await _userManager.GetRolesAsync(userToVerify)).FirstOrDefault();
+                //var userRole =  _appDbContext.UserRoles.FirstOrDefault(x => x.UserId == userToVerify.Id);
                 var claimDTO = new ClaimDto
                 {
                     Id = userToVerify.Id,
                     Email = userToVerify.Email,
                     //IsAdmin = await _userQueryService.CheckUserAdminAsync(userToVerify.Id),
-                    Role = (await GetRoleById(userRole.RoleId)).Name,
-                    
+                    Role = roles,
                     FullName = userToVerify.FullName
                 };
                 userDetails.ClaimsIdentity = await Task.FromResult(_jwtService.GenerateClaimsIdentity(claimDTO));

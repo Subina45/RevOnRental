@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RevOnRental.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RevOnRental.Infrastructure.Data;
 namespace RevOnRental.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241122165956_update business table")]
+    partial class updatebusinesstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,7 +206,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Businesses", (string)null);
+                    b.ToTable("Businesses");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.BusinessDocument", b =>
@@ -239,7 +242,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasIndex("BusinessId");
 
-                    b.ToTable("BusinesseDocuments", (string)null);
+                    b.ToTable("BusinesseDocuments");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.Payment", b =>
@@ -287,7 +290,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.Rental", b =>
@@ -329,7 +332,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Rentals", (string)null);
+                    b.ToTable("Rentals");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.RentalCharge", b =>
@@ -363,7 +366,7 @@ namespace RevOnRental.Infrastructure.Migrations
                     b.HasIndex("VehicleId")
                         .IsUnique();
 
-                    b.ToTable("RentalCharge", (string)null);
+                    b.ToTable("RentalCharge");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.ReviewRating", b =>
@@ -403,7 +406,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ReviewRatings", (string)null);
+                    b.ToTable("ReviewRatings");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.User", b =>
@@ -523,7 +526,7 @@ namespace RevOnRental.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserBusiness", (string)null);
+                    b.ToTable("UserBusiness");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.UserRole", b =>
@@ -538,7 +541,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.Vehicle", b =>
@@ -602,7 +605,7 @@ namespace RevOnRental.Infrastructure.Migrations
 
                     b.HasIndex("BusinessID");
 
-                    b.ToTable("Vehicles", (string)null);
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.Role", b =>

@@ -49,6 +49,7 @@ namespace RevOnRental.Infrastructure.Identity.Services
         {
             try
             {
+                
                 var authToken = await GenerateEncodedToken(userDetails.ClaimsIdentity);
                 return new AuthenticationOutputDto
                 {
@@ -68,7 +69,7 @@ namespace RevOnRental.Infrastructure.Identity.Services
             var claimList = new List<Claim>()
             {
                 identity.FindFirst(AuthConstants.JwtId),
-                //identity.FindFirst(AuthConstants.IsAdmin),
+                identity.FindFirst(AuthConstants.Role),
                 identity.FindFirst(AuthConstants.FullName),
                 new Claim(JwtRegisteredClaimNames.Sub,email),
                 new Claim(JwtRegisteredClaimNames.Email,email),
@@ -94,7 +95,7 @@ namespace RevOnRental.Infrastructure.Identity.Services
             yield return new Claim(AuthConstants.JwtId, claimDto.Id.ToString());
             yield return new Claim(ClaimTypes.Email, claimDto.Email);
             //yield return new Claim(AuthConstants.IsAdmin, claimDto.IsAdmin.ToString().ToLower());
-            yield return new Claim(ClaimTypes.Role, claimDto.Role);
+            yield return new Claim(AuthConstants.Role, claimDto.Role);
             yield return new Claim(AuthConstants.FullName, claimDto.FullName);
         }
 

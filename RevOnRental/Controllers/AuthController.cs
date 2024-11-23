@@ -35,7 +35,7 @@ namespace RevOnRental.Controllers
             var result = await _authService.RegisterUserAsync(model);
             if (result.Succeeded)
             {
-                return Ok("User registered successfully");
+                return Ok();
             }
             return BadRequest(result.Errors);
         }
@@ -43,13 +43,13 @@ namespace RevOnRental.Controllers
         [AllowAnonymous]
         // Register Business
         [HttpPost("register/business")]
-        public async Task<IActionResult> RegisterBusiness([FromBody] RegisterBusinessDto model)
+        public async Task<IActionResult> RegisterBusiness([FromForm] RegisterBusinessDto model)
         {
             var result = await _authService.RegisterBusinessAsync(model);
            
             if (result.Succeeded)
             {
-                return Ok("Business registered successfully");
+                return Ok();
             }
             return BadRequest(result.Errors);
         }
