@@ -8,6 +8,9 @@ using RevOnRental.Application.Dtos.Auth;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using RevOnRental.Application.Services.Businesses.Command;
+using RevOnRental.SignalR;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
 namespace RevOnRental.Controllers
 {
@@ -16,10 +19,11 @@ namespace RevOnRental.Controllers
     public class AuthController : BaseController
     {
         private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService )//, UpdateUser updateUser)
+        private readonly IHubContext<MessageHub> _messageHub;
+        public AuthController(IAuthService authService, IHubContext<MessageHub> messageHub)//, UpdateUser updateUser)
         {
             _authService = authService;
+            _messageHub = messageHub;
             //_updateUser = updateUser;
         }
 
@@ -85,6 +89,13 @@ namespace RevOnRental.Controllers
             try
             {
                 var result = await _authService.LoginAsync(model);
+
+                var returnSignalObject = new
+                {
+                    update="signalr works"
+                };
+                await _messageHub.Clients.All.SendAsync("NotificationSend", returnSignalObject);
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -116,6 +127,7 @@ namespace RevOnRental.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.RentalBooking.Queries;
 
@@ -8,18 +9,12 @@ namespace RevOnRental.Controllers
     [Route("api/[controller]")]
     public class RentalBookingController : BaseController
     {
-        private readonly IRentalBooking _rentalBooking;
-
-        public RentalBookingController(IRentalBooking rentalBooking)
-        {
-            _rentalBooking = rentalBooking;
-            
-        }
-
+     
+        [AllowAnonymous]
         [HttpGet("business/{businessId}")]
         public async Task<IActionResult> GetRentalsByBusiness(int businessId)
         {
-            var rentals = await _rentalBooking.GetRentalsByBusinessIdQuery(businessId);
+            var rentals = await Mediator.Send(new GetRentalsByBusinessIdQuery { BusinessId=businessId});
             if (rentals == null || !rentals.Any())
             {
                 return NotFound("No rentals found for the specified business.");
@@ -27,12 +22,12 @@ namespace RevOnRental.Controllers
             return Ok(rentals);
         }
 
-        [HttpGet("{userId}/booking-history")]
+        [HttpGet("booking-history/{userId}")]
         public async Task<IActionResult> GetBookingHistory(int userId)
         {
             try
             {
-                var rentals = await _rentalBooking.GetUserBookingHistoryQuery(userId);
+                var rentals = await Mediator.Send(new GetUserBookingHistoryQuery { UserId=userId });
                 if (rentals == null || !rentals.Any())
                 {
                     return NotFound("No booking history found for the specified user.");

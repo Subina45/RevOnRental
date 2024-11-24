@@ -27,46 +27,55 @@ namespace RevOnRental.Application.Services.Businesses.Queries
 
         public async Task<BusinessDashboardDto> Handle(GetBusinessDashboardQuery request, CancellationToken cancellationToken)
         {
-            // Fetch all vehicles for the specified business
-            var vehicles = await _context.Vehicles
-                .Where(v => v.BusinessID == request.BusinessId)
-                .ToListAsync(cancellationToken);
-
-            if (vehicles == null || vehicles.Count == 0)
+            try
             {
-                return new BusinessDashboardDto
+                // Fetch all vehicles for the specified business
+                var vehicles = await _context.Vehicles
+                    .Where(v => v.BusinessID == request.BusinessId)
+                    .ToListAsync(cancellationToken);
+
+                if (vehicles == null || vehicles.Count == 0)
                 {
-                    TotalVehicles = 0,
-                    TotalAvailableVehicles = 0,
-                    VehicleTypeSummaries = new List<VehicleTypeSummaryDto>()
+                    return new BusinessDashboardDto
+                    {
+                        TotalVehicles = 0,
+                        TotalAvailableVehicles = 0,
+                        VehicleTypeSummaries = new List<VehicleTypeSummaryDto>()
+                    };
+                }
+
+                // Calculate total vehicles and total available vehicles
+                int totalVehicles = vehicles.Sum(v => v.NumberOfVehicle);
+                int totalAvailableVehicles = vehicles
+                    .Sum(v => v.NumberOfAvailableVehicle);
+
+                // Group vehicles by type and calculate the total and available quantities
+                var vehicleTypeSummaries = vehicles
+                    .GroupBy(v => v.VehicleType.ToString())
+                    .Select(group => new VehicleTypeSummaryDto
+                    {
+                        VehicleType = group.Key,
+                        TotalQuantity = group.Sum(v => v.NumberOfVehicle),
+                        AvailableQuantity = group.Sum(v => v.NumberOfAvailableVehicle)
+                    })
+                    .ToList();
+
+                // Prepare the dashboard summary DTO
+                var dashboardDto = new BusinessDashboardDto
+                {
+                    TotalVehicles = totalVehicles,
+                    TotalAvailableVehicles = totalAvailableVehicles,
+                    VehicleTypeSummaries = vehicleTypeSummaries
                 };
+
+                return dashboardDto;
             }
-
-            // Calculate total vehicles and total available vehicles
-            int totalVehicles = vehicles.Sum(v => v.NumberOfVehicle);
-            int totalAvailableVehicles = vehicles
-                .Sum(v => v.NumberOfAvailableVehicle);
-
-            // Group vehicles by type and calculate the total and available quantities
-            var vehicleTypeSummaries = vehicles
-                .GroupBy(v => v.VehicleType.ToString())
-                .Select(group => new VehicleTypeSummaryDto
-                {
-                    VehicleType = group.Key,
-                    TotalQuantity = group.Sum(v => v.NumberOfVehicle),
-                    AvailableQuantity = group.Sum(v => v.NumberOfAvailableVehicle)
-                })
-                .ToList();
-
-            // Prepare the dashboard summary DTO
-            var dashboardDto = new BusinessDashboardDto
+            catch (Exception ex)
             {
-                TotalVehicles = totalVehicles,
-                TotalAvailableVehicles = totalAvailableVehicles,
-                VehicleTypeSummaries = vehicleTypeSummaries
-            };
 
-            return dashboardDto;
+                throw;
+            }
+           
         }
     }
 }

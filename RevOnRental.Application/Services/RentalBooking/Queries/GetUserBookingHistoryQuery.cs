@@ -29,7 +29,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Queries
                 .Include(r => r.User)
                 .Include(r => r.Vehicle)
                 .ThenInclude(x=>x.Business)
-                .Where(r => r.Vehicle.BusinessID == request.UserId).Select(x => new UserBookingHistoryDto
+                .Where(r => r.UserID == request.UserId).Select(x => new UserBookingHistoryDto
                 {
                     UserId= x.UserID,
                     UserName=x.User.FullName,
@@ -41,9 +41,9 @@ namespace RevOnRental.Application.Services.RentalBooking.Queries
                     VehicleType=x.Vehicle.VehicleType,
                     VehicleId=x.VehicleId,
                     TotalPrice=x.TotalPrice,
-                    
+                    CreatedDate= x.CreatedDate,
                 })
-                .OrderByDescending(r => r.StartDate)
+                .OrderByDescending(r => r.CreatedDate)
                 .ToListAsync();
         }
     }

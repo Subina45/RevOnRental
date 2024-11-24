@@ -4,6 +4,7 @@ using RevOnRental.Infrastructure.Data;
 using RevOnRental.Infrastructure.Identity;
 using System.Reflection;
 using RevOnRental.Application;
+using RevOnRental.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +64,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+    options.KeepAliveInterval = TimeSpan.FromMinutes(2);
+}).AddAzureSignalR();
+
+
 
 var app = builder.Build();
 
@@ -82,5 +90,10 @@ app.UseAuthorization();
 app.UseCors("AllowSpecificOrigins");
 
 app.MapControllers();
+
+app.UseAzureSignalR(routes =>
+{
+    routes.MapHub<MessageHub>("/message");
+});
 
 app.Run();
