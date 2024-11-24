@@ -14,11 +14,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.4" />
+	  <PackageReference Include="Microsoft.Azure.SignalR" Version="1.2.3" />
+	  <PackageReference Include="Microsoft.Azure.SignalR.Management" Version="1.2.3" />
+
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RevOnRental.Infrastructure.Identity\RevOnRental.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\RevOnRental.Infrastructure\RevOnRental.Infrastructure.csproj" />
+    <ProjectReference Include="..\RevOnRental.SignalR\RevOnRental.SignalR.csproj" />
   </ItemGroup>
 
 </Project>

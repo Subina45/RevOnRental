@@ -19,5 +19,6 @@ namespace RevOnRental.Application.Dtos
         public DateTime EndDate { get; set; }
         public VehicleType VehicleType { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

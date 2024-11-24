@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Dtos.BusinessDashboard;
 using RevOnRental.Application.Dtos.BusinessDetails;
@@ -15,7 +16,7 @@ namespace RevOnRental.Controllers
     [Route("api/[controller]")]
     public class VehicleRentalController : BaseController
     {
-        [HttpGet("search")]
+        [HttpPost("search")]
         public async Task<ActionResult<List<VehicleAvailabilityDto>>> SearchAvailableVehicles([FromBody] SearchAvailableVehiclesQuery requestDto)
         {
 
@@ -37,7 +38,7 @@ namespace RevOnRental.Controllers
             var rentalId = await Mediator.Send(rentalDto);
             return Ok(rentalId);
         }
-
+        
         [HttpGet("business-dashboard/{businessId}")]
         public async Task<ActionResult<BusinessDashboardDto>> GetBusinessDashboard(int businessId)
         {

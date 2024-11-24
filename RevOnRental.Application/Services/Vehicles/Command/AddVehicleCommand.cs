@@ -39,30 +39,40 @@ namespace RevOnRental.Application.Services.Vehicles.Command
 
         public async Task<bool> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
-            using var memoryStreamVehiclephoto = new MemoryStream();
-            await request.Photo.CopyToAsync(memoryStreamVehiclephoto);
-            var vehicles = new Vehicle
+            try
             {
-                BusinessID = request.BusinessId,
-                VehicleType = request.VehicleType,
-                Model = request.Model,
-                Brand = request.Brand,
-                NumberOfVehicle = request.NumberOfVehicle,
-                AvailabilityStatus = request.AvailabilityStatus,
-                RentalCharges = new RentalCharge
+                using var memoryStreamVehiclephoto = new MemoryStream();
+                await request.Photo.CopyToAsync(memoryStreamVehiclephoto);
+                var vehicles = new Vehicle
                 {
-                    HourlyRate = request.HourlyRate,
-                    FullDayRate = request.FullDayRate,
-                    HalfDayRate = request.HalfDayRate,
-                },
-                FileName = request.Photo.FileName,
-                ContentType = request.Photo.ContentType,
-                FileContent = memoryStreamVehiclephoto.ToArray(),
-                UploadedDate = DateTime.Now,
-            };
-            await _context.Vehicles.AddAsync(vehicles);
-            await _context.SaveChangesAsync();
-            return true;
+                    BusinessID = request.BusinessId,
+                    VehicleType = request.VehicleType,
+                    Model = request.Model,
+                    Brand = request.Brand,
+                    NumberOfVehicle = request.NumberOfVehicle,
+                    NumberOfAvailableVehicle=request.NumberOfVehicle,
+                    AvailabilityStatus = request.AvailabilityStatus,
+                    RentalCharges = new RentalCharge
+                    {
+                        HourlyRate = request.HourlyRate,
+                        FullDayRate = request.FullDayRate,
+                        HalfDayRate = request.HalfDayRate,
+                    },
+                    FileName = request.Photo.FileName,
+                    ContentType = request.Photo.ContentType,
+                    FileContent = memoryStreamVehiclephoto.ToArray(),
+                    UploadedDate = DateTime.Now,
+                };
+                await _context.Vehicles.AddAsync(vehicles);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
