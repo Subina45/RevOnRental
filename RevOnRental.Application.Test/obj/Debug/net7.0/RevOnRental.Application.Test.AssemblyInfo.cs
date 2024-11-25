@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RevOnRental.Application.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a2194fb028d88e423bdb624165509d95f16b696")]
 [assembly: System.Reflection.AssemblyProductAttribute("RevOnRental.Application.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RevOnRental.Application.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

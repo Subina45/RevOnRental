@@ -17,3 +17,23 @@ C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Infrastructure.Identity\obj\D
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\refint\RevOnRental.Infrastructure.Identity.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.pdb
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\ref\RevOnRental.Infrastructure.Identity.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Infrastructure.Identity.deps.json
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Infrastructure.Identity.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Infrastructure.Identity.pdb
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Application.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Domain.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Infrastructure.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Domain.pdb
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Infrastructure.pdb
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\bin\Debug\net7.0\RevOnRental.Application.pdb
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.csproj.AssemblyReference.cache
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.GeneratedMSBuildEditorConfig.editorconfig
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.AssemblyInfoInputs.cache
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.AssemblyInfo.cs
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.csproj.CoreCompileInputs.cache
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.sourcelink.json
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRen.FAE72873.Up2Date
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\refint\RevOnRental.Infrastructure.Identity.dll
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\RevOnRental.Infrastructure.Identity.pdb
+B:\Rev\RevOnRental\RevOnRental.Infrastructure.Identity\obj\Debug\net7.0\ref\RevOnRental.Infrastructure.Identity.dll

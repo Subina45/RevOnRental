@@ -10,3 +10,16 @@ C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Domain\obj\Debug\net7.0\RevOn
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Domain\obj\Debug\net7.0\refint\RevOnRental.Domain.dll
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.pdb
 C:\Users\subin\Desktop\RevOnRental Api\RevOnRental.Domain\obj\Debug\net7.0\ref\RevOnRental.Domain.dll
+B:\Rev\RevOnRental\RevOnRental.Domain\bin\Debug\net7.0\RevOnRental.Domain.deps.json
+B:\Rev\RevOnRental\RevOnRental.Domain\bin\Debug\net7.0\RevOnRental.Domain.dll
+B:\Rev\RevOnRental\RevOnRental.Domain\bin\Debug\net7.0\RevOnRental.Domain.pdb
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.csproj.AssemblyReference.cache
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.GeneratedMSBuildEditorConfig.editorconfig
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.AssemblyInfoInputs.cache
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.AssemblyInfo.cs
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.csproj.CoreCompileInputs.cache
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.sourcelink.json
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.dll
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\refint\RevOnRental.Domain.dll
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\RevOnRental.Domain.pdb
+B:\Rev\RevOnRental\RevOnRental.Domain\obj\Debug\net7.0\ref\RevOnRental.Domain.dll

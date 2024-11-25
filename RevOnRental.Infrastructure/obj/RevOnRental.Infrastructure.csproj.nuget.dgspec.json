@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj": {}
+    "B:\\Rev\\RevOnRental\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Application\\RevOnRental.Application.csproj": {
+    "B:\\Rev\\RevOnRental\\RevOnRental.Application\\RevOnRental.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Application\\RevOnRental.Application.csproj",
+        "projectUniqueName": "B:\\Rev\\RevOnRental\\RevOnRental.Application\\RevOnRental.Application.csproj",
         "projectName": "RevOnRental.Application",
-        "projectPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Application\\RevOnRental.Application.csproj",
-        "packagesPath": "C:\\Users\\subin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Application\\obj\\",
+        "projectPath": "B:\\Rev\\RevOnRental\\RevOnRental.Application\\RevOnRental.Application.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "B:\\Rev\\RevOnRental\\RevOnRental.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\subin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,8 +33,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Domain\\RevOnRental.Domain.csproj": {
-                "projectPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Domain\\RevOnRental.Domain.csproj"
+              "B:\\Rev\\RevOnRental\\RevOnRental.Domain\\RevOnRental.Domain.csproj": {
+                "projectPath": "B:\\Rev\\RevOnRental\\RevOnRental.Domain\\RevOnRental.Domain.csproj"
               }
             }
           }
@@ -43,6 +43,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -82,24 +87,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Domain\\RevOnRental.Domain.csproj": {
+    "B:\\Rev\\RevOnRental\\RevOnRental.Domain\\RevOnRental.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Domain\\RevOnRental.Domain.csproj",
+        "projectUniqueName": "B:\\Rev\\RevOnRental\\RevOnRental.Domain\\RevOnRental.Domain.csproj",
         "projectName": "RevOnRental.Domain",
-        "projectPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Domain\\RevOnRental.Domain.csproj",
-        "packagesPath": "C:\\Users\\subin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Domain\\obj\\",
+        "projectPath": "B:\\Rev\\RevOnRental\\RevOnRental.Domain\\RevOnRental.Domain.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "B:\\Rev\\RevOnRental\\RevOnRental.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\subin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -121,6 +126,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -164,24 +174,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj": {
+    "B:\\Rev\\RevOnRental\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj",
+        "projectUniqueName": "B:\\Rev\\RevOnRental\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj",
         "projectName": "RevOnRental.Infrastructure",
-        "projectPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\subin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Infrastructure\\obj\\",
+        "projectPath": "B:\\Rev\\RevOnRental\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "B:\\Rev\\RevOnRental\\RevOnRental.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\subin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -197,8 +207,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Application\\RevOnRental.Application.csproj": {
-                "projectPath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Application\\RevOnRental.Application.csproj"
+              "B:\\Rev\\RevOnRental\\RevOnRental.Application\\RevOnRental.Application.csproj": {
+                "projectPath": "B:\\Rev\\RevOnRental\\RevOnRental.Application\\RevOnRental.Application.csproj"
               }
             }
           }
@@ -207,6 +217,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -258,7 +273,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }
