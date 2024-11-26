@@ -99,6 +99,9 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                 _context.Vehicles.Update(vehicle);
                 await _context.SaveChangesAsync(cancellationToken);
 
+                //call create notification command to save notification
+
+
                 // Return the rental ID
                 return rental.Id;
             }

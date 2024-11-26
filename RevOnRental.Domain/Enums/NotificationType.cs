@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RevOnRental.Domain.Enums
 {
-    public enum VehicleType
+    public enum NotificationType
     {
-        Bicycle=0,
-        Bike=1,
-        Car=2
+        RentalRequest = 1,
+        PaymentRequest = 2,
+        RentalRejected = 3
     }
 }

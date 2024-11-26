@@ -18,6 +18,7 @@ namespace RevOnRental.Application.Services.Vehicles.Command
         public string Model { get; set; }
         public string Brand { get; set; }
         public int NumberOfVehicle { get; set; }
+        public RentalCharge RentalCharges { get; set; }
 
         public bool AvailabilityStatus { get; set; }
     }
@@ -41,9 +42,13 @@ namespace RevOnRental.Application.Services.Vehicles.Command
                 existingVehicle.Brand = request.Brand;
                 existingVehicle.VehicleType = request.VehicleType;
                 existingVehicle.AvailabilityStatus = request.AvailabilityStatus;
-
                 existingVehicle.NumberOfVehicle = request.NumberOfVehicle;
-
+                if (request.RentalCharges != null)
+                {
+                    existingVehicle.RentalCharges.HourlyRate = request.RentalCharges.HourlyRate;
+                    existingVehicle.RentalCharges.HalfDayRate = request.RentalCharges.HalfDayRate;
+                    existingVehicle.RentalCharges.FullDayRate = request.RentalCharges.FullDayRate;
+                }
                 await _context.SaveChangesAsync();
                 return true;
             }
