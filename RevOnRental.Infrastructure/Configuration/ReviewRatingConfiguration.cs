@@ -21,12 +21,12 @@ namespace RevOnRental.Infrastructure.Configuration
             // Relationship with User
             builder.HasOne(rr => rr.User)
                 .WithMany(u => u.Reviews)
-                .HasForeignKey(rr => rr.UserId);
+                .HasForeignKey(rr => rr.UserId).OnDelete(DeleteBehavior.Cascade); ;
 
             // Relationship with Business
             builder.HasOne(rr => rr.Business)
                 .WithMany(b => b.Reviews)
-                .HasForeignKey(rr => rr.BusinessId);
+                .HasForeignKey(rr => rr.BusinessId).OnDelete(DeleteBehavior.Cascade); ;
 
         }
     }

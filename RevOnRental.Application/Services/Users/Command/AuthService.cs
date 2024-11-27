@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Dtos.Auth;
 using RevOnRental.Application.Exceptions;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RevOnRental.Application.Services.Users.Command
@@ -188,7 +190,10 @@ namespace RevOnRental.Application.Services.Users.Command
         {
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
             {
-                
+                var userBusiness =  _appDbContext.UserBusiness
+                                    .FirstOrDefault(ub => ub.UserId == userToVerify.Id);
+               
+
 
                 // Fetch roles for the user
                 var roles = (await _userManager.GetRolesAsync(userToVerify)).FirstOrDefault();
@@ -201,6 +206,11 @@ namespace RevOnRental.Application.Services.Users.Command
                     Role = roles,
                     FullName = userToVerify.FullName
                 };
+
+                if (userBusiness != null)
+                {
+                    claimDTO.BusinessId=userBusiness.BusinessId;    
+                }
                 userDetails.ClaimsIdentity = await Task.FromResult(_jwtService.GenerateClaimsIdentity(claimDTO));
                 return userDetails;
             }

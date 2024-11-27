@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RevOnRental.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RevOnRental.Infrastructure.Data;
 namespace RevOnRental.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241127145342_notification")]
+    partial class notification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -757,7 +760,7 @@ namespace RevOnRental.Infrastructure.Migrations
                     b.HasOne("RevOnRental.Domain.Models.Vehicle", "Vehicle")
                         .WithMany("Rentals")
                         .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -770,7 +773,7 @@ namespace RevOnRental.Infrastructure.Migrations
                     b.HasOne("RevOnRental.Domain.Models.Vehicle", "Vehicle")
                         .WithOne("RentalCharges")
                         .HasForeignKey("RevOnRental.Domain.Models.RentalCharge", "VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Vehicle");
@@ -834,7 +837,7 @@ namespace RevOnRental.Infrastructure.Migrations
                     b.HasOne("RevOnRental.Domain.Models.Business", "Business")
                         .WithMany("Vehicles")
                         .HasForeignKey("BusinessID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Business");

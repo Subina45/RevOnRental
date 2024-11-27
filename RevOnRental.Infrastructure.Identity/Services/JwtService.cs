@@ -77,6 +77,13 @@ namespace RevOnRental.Infrastructure.Identity.Services
                 new Claim(JwtRegisteredClaimNames.Iat,_jwtOptions.IssuedAt.ToString(), ClaimValueTypes.Integer64),
             };
 
+            // Add BusinessId claim only if it exists
+            var businessIdClaim = identity.FindFirst(AuthConstants.BusinessId);
+            if (businessIdClaim != null)
+            {
+                claimList.Add(businessIdClaim);
+            }
+
             //Create JWT security token and encode it
             var jwt = new JwtSecurityToken(
                  issuer: _jwtOptions.Issuer,
@@ -96,6 +103,10 @@ namespace RevOnRental.Infrastructure.Identity.Services
             yield return new Claim(ClaimTypes.Email, claimDto.Email);
             //yield return new Claim(AuthConstants.IsAdmin, claimDto.IsAdmin.ToString().ToLower());
             yield return new Claim(AuthConstants.Role, claimDto.Role);
+            if (claimDto.BusinessId.HasValue)
+            {
+                yield return new Claim(AuthConstants.BusinessId, claimDto.BusinessId.Value.ToString());
+            }
             yield return new Claim(AuthConstants.FullName, claimDto.FullName);
         }
 

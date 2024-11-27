@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace RevOnRental.Application.Services.RentalBooking.Command
 {
+    
     public class AcceptRentalCommand : IRequest<bool>
     {
         public int RentalId { get; set; }

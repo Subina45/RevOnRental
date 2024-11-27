@@ -36,7 +36,7 @@ namespace RevOnRental.Infrastructure.Configuration
 
             builder.HasMany(u => u.Rentals)
                 .WithOne(r => r.User)
-                .HasForeignKey(r => r.UserID);
+                .HasForeignKey(r => r.UserID).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

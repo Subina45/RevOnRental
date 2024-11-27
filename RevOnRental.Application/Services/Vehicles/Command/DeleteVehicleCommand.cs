@@ -27,15 +27,24 @@ namespace RevOnRental.Application.Services.Vehicles.Command
 
         public async Task<bool> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)
         {
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == request.Id);
-            if (vehicle != null)
+            try
             {
-                _context.Vehicles.Remove(vehicle);
-                await _context.SaveChangesAsync();
-                return true;
-            }
+                var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == request.Id);
+                if (vehicle != null)
+                {
+                    _context.Vehicles.Remove(vehicle);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
         }
     }
 }

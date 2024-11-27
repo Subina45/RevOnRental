@@ -18,9 +18,9 @@ namespace RevOnRental.Infrastructure.Configuration
             builder.HasOne(rc => rc.Vehicle)
                 .WithOne(v => v.RentalCharges) 
                 .HasForeignKey<RentalCharge>(rc => rc.VehicleId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
-          
+
 
             builder.Property(rc => rc.HourlyRate)
                 .IsRequired()

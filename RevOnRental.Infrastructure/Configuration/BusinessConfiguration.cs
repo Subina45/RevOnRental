@@ -27,7 +27,7 @@ namespace RevOnRental.Infrastructure.Configuration
 
             builder.HasMany(b => b.BusinessDocuments)
                .WithOne(v => v.Business)
-               .HasForeignKey(v => v.BusinessId);
+               .HasForeignKey(v => v.BusinessId).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

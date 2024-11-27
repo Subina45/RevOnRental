@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Interfaces;
+using RevOnRental.Application.Services.Notifications.Command;
 using RevOnRental.Domain.Enums;
 using RevOnRental.Domain.Models;
 using System;
@@ -23,10 +24,12 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
     public class CreateRentalHandler : IRequestHandler<CreateRentalCommand, int>
     {
         private readonly IAppDbContext _context;
+        private readonly IMediator _mediator;
 
-        public CreateRentalHandler(IAppDbContext context)
+        public CreateRentalHandler(IAppDbContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;   
         }
 
         public async Task<int> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
@@ -100,7 +103,15 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                 await _context.SaveChangesAsync(cancellationToken);
 
                 //call create notification command to save notification
-
+                var notification = new CreateNotificationCommand
+                {
+                    UserId = request.UserId,
+                    VehicleId = request.VehicleId,
+                    StartDate = request.StartDateTime,
+                    EndDate = request.EndDateTime,
+                    Type = NotificationType.RentalRequest
+                };
+                await _mediator.Send(notification);
 
                 // Return the rental ID
                 return rental.Id;

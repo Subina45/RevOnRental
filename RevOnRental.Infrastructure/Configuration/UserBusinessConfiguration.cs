@@ -17,11 +17,11 @@ namespace RevOnRental.Infrastructure.Configuration
 
             builder.HasOne(ub => ub.User)
                 .WithOne(u => u.UserBusiness)
-                .HasForeignKey<UserBusiness>(ub => ub.UserId);
+                .HasForeignKey<UserBusiness>(ub => ub.UserId).OnDelete(DeleteBehavior.Cascade); ;
 
             builder.HasOne(ub => ub.Business)
                 .WithOne(b => b.UserBusiness)
-                .HasForeignKey<UserBusiness>(ub => ub.BusinessId);
+                .HasForeignKey<UserBusiness>(ub => ub.BusinessId).OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

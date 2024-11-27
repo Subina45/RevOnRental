@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Domain.Enums;
 using RevOnRental.Domain.Models;
@@ -18,7 +19,7 @@ namespace RevOnRental.Application.Services.Vehicles.Command
         public string Model { get; set; }
         public string Brand { get; set; }
         public int NumberOfVehicle { get; set; }
-        public RentalCharge RentalCharges { get; set; }
+        public RentalChargeDto RentalCharges { get; set; }
 
         public bool AvailabilityStatus { get; set; }
     }
@@ -34,7 +35,7 @@ namespace RevOnRental.Application.Services.Vehicles.Command
 
         public async Task<bool> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
         {
-            var existingVehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == request.Id);
+            var existingVehicle = await _context.Vehicles.Include(x=>x.RentalCharges).FirstOrDefaultAsync(v => v.Id == request.Id);
 
             if (existingVehicle != null)
             {

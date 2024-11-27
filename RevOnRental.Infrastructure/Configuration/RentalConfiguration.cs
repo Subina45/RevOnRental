@@ -31,11 +31,12 @@ namespace RevOnRental.Infrastructure.Configuration
 
             builder.HasOne(r => r.User)
                 .WithMany(u => u.Rentals)
-                .HasForeignKey(r => r.UserID);
+                .HasForeignKey(r => r.UserID).OnDelete(DeleteBehavior.Cascade); ;
 
             builder.HasOne(r => r.Vehicle)
-                .WithMany(v => v.Rentals).HasForeignKey(r=>r.VehicleId);
-                
+                .WithMany(v => v.Rentals).HasForeignKey(r=>r.VehicleId).OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }
