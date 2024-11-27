@@ -11,6 +11,7 @@ using RevOnRental.Application.Services.Businesses.Command;
 using RevOnRental.SignalR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using RevOnRental.Application.Services.Users.Queries;
 
 namespace RevOnRental.Controllers
 {
@@ -103,6 +104,13 @@ namespace RevOnRental.Controllers
                 return BadRequest(ex.Message);
             }
            
+        }
+
+        [HttpGet("user-details/{userId}")]
+        public async Task<ActionResult<UserDto>> GetUserDetails(int userId)
+        {
+            var userDetails = await Mediator.Send(new GetUserDetailsQuery { UserId = userId });
+            return Ok(userDetails);
         }
         //updateUser
         [HttpPut("{userId}")]

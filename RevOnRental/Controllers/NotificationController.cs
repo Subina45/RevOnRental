@@ -1,26 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RevOnRental.Application.Interfaces;
+using RevOnRental.Application.Services.Notifications.Command;
 using RevOnRental.Domain.Models;
 
 namespace RevOnRental.Controllers
 {
     [ApiController]
-    [Route("api/notifications")]
+    [Route("api/[controller]")]
     public class NotificationsController : ControllerBase
     {
-        private readonly INotificationService _notificationService;
+        private readonly IMediator _mediator;
 
-        public NotificationsController(INotificationService notificationService)
+        public NotificationsController(IMediator mediator)
         {
-            _notificationService = notificationService;
+            _mediator = mediator;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<Notification>>> GetNotifications(int userId)
+        [HttpPost("createNotification")]
+        public async Task<IActionResult> CreateNotification([FromBody] CreateNotificationCommand command)
         {
-            var notifications = await _notificationService.GetUserNotifications(userId);
-            return Ok(notifications);
+            if (command == null)
+                return BadRequest("Invalid notification data.");
+
+            try
+            {
+                var notification = await _mediator.Send(command);
+                return Ok(notification);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
-
 }

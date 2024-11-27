@@ -33,6 +33,7 @@ namespace RevOnRental.Application.Services.Businesses.Queries
                 .Include(b => b.UserBusiness)
                     .ThenInclude(ub => ub.User)
                 .Include(b => b.Vehicles)
+                .ThenInclude(x=>x.RentalCharges)
                 .Include(b => b.Reviews)
                     .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(b => b.Id == request.BusinessId, cancellationToken);

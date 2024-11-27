@@ -55,7 +55,11 @@ namespace RevOnRental.Application.Services.Businesses.Queries
 
                 if (vehicles.Count > 0)
                 {
-                    var result = vehicles.Select(v => new VehicleAvailabilityDto
+                    var groupedBusinesses = vehicles
+                        .GroupBy(v => v.Business.Id)
+                        .Select(g => g.First())
+                        .ToList();
+                    var result = groupedBusinesses.Select(v => new VehicleAvailabilityDto
                     {
                         BusinessName = v.Business.BusinessName,
                         Distance = v.Business != null ? DistanceCalculator.GetDistance(

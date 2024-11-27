@@ -43,6 +43,8 @@ namespace RevOnRental.Application.Services.Vehicles.Command
             {
                 using var memoryStreamVehiclephoto = new MemoryStream();
                 await request.Photo.CopyToAsync(memoryStreamVehiclephoto);
+                int numberOfAvailableVehicle = request.AvailabilityStatus ? request.NumberOfVehicle : 0;
+
                 var vehicles = new Vehicle
                 {
                     BusinessID = request.BusinessId,
@@ -50,7 +52,7 @@ namespace RevOnRental.Application.Services.Vehicles.Command
                     Model = request.Model,
                     Brand = request.Brand,
                     NumberOfVehicle = request.NumberOfVehicle,
-                    NumberOfAvailableVehicle=request.NumberOfVehicle,
+                    NumberOfAvailableVehicle= numberOfAvailableVehicle,
                     AvailabilityStatus = request.AvailabilityStatus,
                     RentalCharges = new RentalCharge
                     {

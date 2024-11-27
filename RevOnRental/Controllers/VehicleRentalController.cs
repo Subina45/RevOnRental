@@ -32,13 +32,27 @@ namespace RevOnRental.Controllers
             return Ok(businessDetails);
         }
 
-        [HttpPost("rent-vehicle")]
+        [HttpPost("create-rent-vehicle")]
         public async Task<ActionResult<int>> RentVehicle([FromBody] CreateRentalCommand rentalDto)
         {
             var rentalId = await Mediator.Send(rentalDto);
             return Ok(rentalId);
         }
-        
+
+        [HttpPost("accept-rental")]
+        public async Task<ActionResult<bool>> AcceptRental([FromBody] AcceptRentalCommand acceptRentalCommand)
+        {
+            var result = await Mediator.Send(acceptRentalCommand);
+            return Ok(result);
+        }
+
+        [HttpPost("reject-rental")]
+        public async Task<ActionResult<bool>> RejectRental([FromBody] RejectRentalCommand rejectRentalCommand)
+        {
+            var result = await Mediator.Send(rejectRentalCommand);
+            return Ok(result);
+        }
+
         [HttpGet("business-dashboard/{businessId}")]
         public async Task<ActionResult<BusinessDashboardDto>> GetBusinessDashboard(int businessId)
         {

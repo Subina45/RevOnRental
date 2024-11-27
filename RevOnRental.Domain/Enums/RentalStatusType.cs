@@ -9,8 +9,10 @@ namespace RevOnRental.Domain.Enums
     public enum RentalStatusType
     {
         Pending,
-        Booked,
-        Cancelled
+        Accepted,
+        Cancelled,
+        Confirmed,
+        Completed
 
     }
 }
