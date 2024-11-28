@@ -22,7 +22,7 @@ namespace RevOnRental.Controllers
         public async Task<IActionResult> CreateNotification([FromBody] CreateNotificationCommand command)
         {
             if (command == null)
-                return BadRequest("Invalid notification data.");
+                return BadRequest();
 
             try
             {
@@ -63,15 +63,23 @@ namespace RevOnRental.Controllers
         [HttpPost("notifications/mark-as-read")]
         public async Task<IActionResult> MarkAsRead([FromBody] MarkAsReadCommand command)
         {
-            if (command == null || (command.UserId == null && command.BusinessId == null))
-                return BadRequest("Invalid request. Either UserId or BusinessId must be provided.");
-
             var result = await _mediator.Send(command);
 
             if (result)
                 return Ok(result);
             else
-                return BadRequest("Failed to mark notification as read.");
+                return BadRequest();
+        }
+
+        [HttpPost("notifications/change-is-new")]
+        public async Task<IActionResult> ChangeIsNew([FromBody] ChangeIsNewCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (result)
+                return Ok(result);
+            else
+                return BadRequest();
         }
     }
 }
