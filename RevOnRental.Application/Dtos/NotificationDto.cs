@@ -13,6 +13,7 @@ namespace RevOnRental.Application.Dtos
         public string Message { get; set; }
         public MiscDto Misc { get; set; }
         public NotificationType NotificationType { get; set; }
+        public bool IsRead { get; set; } = false;
         public DateTime CreatedDate { get; set; }
     }
 }

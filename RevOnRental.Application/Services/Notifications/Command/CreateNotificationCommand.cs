@@ -48,6 +48,7 @@ namespace RevOnRental.Application.Services.Notifications.Command
                 Type = request.Type,
                 CreatedDate = DateTime.Now,
                 IsRead = false,
+                IsNew=true,
                 Misc = JsonConvert.SerializeObject(vehicleDet)
             };
 
@@ -55,7 +56,8 @@ namespace RevOnRental.Application.Services.Notifications.Command
             {
                 notification.BusinessId = vehicleDet.Business.Id;
                 notification.Message = $"{vehicleDet.User.Name} is trying to rent {vehicleDet.Vehicle.Name} from {request.StartDate} to {request.EndDate}";
-            }else if (request.Type == NotificationType.RentalRejected)
+            }
+            else if (request.Type == NotificationType.RentalRejected)
             {
                 notification.UserId = vehicleDet.User.Id;
                 notification.Message = $"Your request for renting {vehicleDet.Vehicle.Name} from {request.StartDate} to {request.EndDate} has been rejected";
@@ -64,6 +66,16 @@ namespace RevOnRental.Application.Services.Notifications.Command
             {
                 notification.UserId = vehicleDet.User.Id;
                 notification.Message = $"Your request for renting {vehicleDet.Vehicle.Name} from {request.StartDate} to {request.EndDate} has been accepted. Please proceed for payment";
+            }
+            else if (request.Type == NotificationType.PaymentSuccessful)
+            {
+                notification.BusinessId = vehicleDet.Business.Id;
+                notification.Message = $"{vehicleDet.Vehicle.Name}  has been paid for by user. ";
+            }
+            else if (request.Type == NotificationType.RatingBusiness)
+            {
+                notification.UserId = vehicleDet.User.Id;
+                notification.Message = $"Please rate your experience with {vehicleDet.Business.Name} for your recent rental of {vehicleDet.Vehicle.Name}.";
             }
 
 

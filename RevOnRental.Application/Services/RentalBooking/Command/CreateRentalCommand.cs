@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RevOnRental.Application.Services.RentalBooking.Command
 {
-    public class CreateRentalCommand : IRequest<int> // Return the rental ID upon success
+    public class CreateRentalCommand : IRequest<NotificationDto> // Return the rental ID upon success
     {
         public int UserId { get; set; }
         public int VehicleId { get; set; }
@@ -21,7 +21,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
         public DateTime EndDateTime { get; set; }
         public decimal TotalPrice { get; set; }
     }
-    public class CreateRentalHandler : IRequestHandler<CreateRentalCommand, int>
+    public class CreateRentalHandler : IRequestHandler<CreateRentalCommand, NotificationDto>
     {
         private readonly IAppDbContext _context;
         private readonly IMediator _mediator;
@@ -32,7 +32,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
             _mediator = mediator;   
         }
 
-        public async Task<int> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
+        public async Task<NotificationDto> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -111,10 +111,10 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                     EndDate = request.EndDateTime,
                     Type = NotificationType.RentalRequest
                 };
-                await _mediator.Send(notification);
+                var res=await _mediator.Send(notification);
 
                 // Return the rental ID
-                return rental.Id;
+                return res;
             }
             catch (Exception ex)
             {

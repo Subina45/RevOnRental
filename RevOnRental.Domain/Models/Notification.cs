@@ -14,6 +14,7 @@ namespace RevOnRental.Domain.Models
         public int? UserId { get; set; }
         public int? BusinessId { get; set; }
         public string Message { get; set; }
+        public bool IsNew { get; set; }
         public bool IsRead { get; set; } = false; // Whether the notification has been read
         public string Misc { get; set; }
         public NotificationType Type { get; set; } // Enum for categorizing notifications

@@ -53,6 +53,24 @@ namespace RevOnRental.Controllers
             return Ok(result);
         }
 
+        [HttpPost("confirm")]
+        public async Task<ActionResult<bool>> ConfirmRental([FromBody] ConfirmRentalCommand command)
+        {
+            var result = await Mediator.Send(command);
+                return Ok(result);
+           
+        }
+
+        // Complete Rental
+        [HttpPost("complete")]
+        public async Task<ActionResult<bool>> CompleteRental([FromBody] CompleteRentalCommand command)
+        {
+
+            var result = await Mediator.Send(command);
+            return Ok(result);
+         
+        }
+
         [HttpGet("business-dashboard/{businessId}")]
         public async Task<ActionResult<BusinessDashboardDto>> GetBusinessDashboard(int businessId)
         {

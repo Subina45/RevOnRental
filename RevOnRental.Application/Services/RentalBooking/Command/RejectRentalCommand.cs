@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.Notifications.Command;
 using RevOnRental.Domain.Enums;
@@ -10,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace RevOnRental.Application.Services.RentalBooking.Command
 {
-    public class RejectRentalCommand : IRequest<bool>
+    public class RejectRentalCommand : IRequest<NotificationDto>
     {
         public int RentalId { get; set; }
     }
 
-    public class RejectRentalHandler : IRequestHandler<RejectRentalCommand, bool>
+    public class RejectRentalHandler : IRequestHandler<RejectRentalCommand, NotificationDto>
     {
         private readonly IAppDbContext _context;
         private readonly IMediator _mediator;
@@ -26,7 +27,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
             _mediator = mediator;
         }
 
-        public async Task<bool> Handle(RejectRentalCommand request, CancellationToken cancellationToken)
+        public async Task<NotificationDto> Handle(RejectRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                     EndDate = rental.EndDate,
                     Type = NotificationType.RentalRejected
                 };
-                await _mediator.Send(notificationCommand, cancellationToken);
+               var res= await _mediator.Send(notificationCommand, cancellationToken);
 
                 // Optionally restore the vehicle's availability
                 var vehicle = rental.Vehicle;
@@ -65,7 +66,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                 _context.Vehicles.Update(vehicle);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return true;
+                return res;
             }
             catch (Exception)
             {

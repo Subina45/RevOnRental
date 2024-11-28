@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.Notifications.Command;
 using RevOnRental.Domain.Enums;
@@ -11,12 +12,12 @@ using System.Threading.Tasks;
 namespace RevOnRental.Application.Services.RentalBooking.Command
 {
     
-    public class AcceptRentalCommand : IRequest<bool>
+    public class AcceptRentalCommand : IRequest<NotificationDto>
     {
         public int RentalId { get; set; }
     }
 
-    public class AcceptRentalHandler : IRequestHandler<AcceptRentalCommand, bool>
+    public class AcceptRentalHandler : IRequestHandler<AcceptRentalCommand, NotificationDto>
     {
         private readonly IAppDbContext _context;
         private readonly IMediator _mediator;
@@ -27,7 +28,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
             _mediator = mediator;
         }
 
-        public async Task<bool> Handle(AcceptRentalCommand request, CancellationToken cancellationToken)
+        public async Task<NotificationDto> Handle(AcceptRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -57,9 +58,9 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                     EndDate = rental.EndDate,
                     Type = NotificationType.PaymentRequest
                 };
-                await _mediator.Send(notificationCommand, cancellationToken);
+               var res= await _mediator.Send(notificationCommand, cancellationToken);
 
-                return true;
+                return res;
             }
             catch (Exception)
             {
