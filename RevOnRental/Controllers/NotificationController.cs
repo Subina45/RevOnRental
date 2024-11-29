@@ -35,7 +35,7 @@ namespace RevOnRental.Controllers
             }
         }
 
-        [HttpGet("notifications")]
+        [HttpGet("Getnotifications")]
         public async Task<IActionResult> GetAllNotifications([FromQuery] int? userId, [FromQuery] int? businessId)
         {
             if (userId == null && businessId == null)

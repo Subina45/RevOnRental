@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Dtos.BusinessDetails;
 using RevOnRental.Application.Interfaces;
+using RevOnRental.Domain.Enums;
 using RevOnRental.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace RevOnRental.Application.Services.Businesses.Queries
     public class GetBusinessDetailsQuery : IRequest<BusinessDetailsDto>
     {
         public int BusinessId { get; set; }
+        public VehicleType VehicleType { get; set; }
     }
 
     public class GetBusinessDetailsHandler : IRequestHandler<GetBusinessDetailsQuery, BusinessDetailsDto>
@@ -32,7 +34,7 @@ namespace RevOnRental.Application.Services.Businesses.Queries
             var business = await _context.Businesses
                 .Include(b => b.UserBusiness)
                     .ThenInclude(ub => ub.User)
-                .Include(b => b.Vehicles)
+                .Include(b => b.Vehicles.Where(x=>x.VehicleType==request.VehicleType))
                 .ThenInclude(x=>x.RentalCharges)
                 .Include(b => b.Reviews)
                     .ThenInclude(r => r.User)

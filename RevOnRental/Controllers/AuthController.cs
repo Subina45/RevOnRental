@@ -113,7 +113,7 @@ namespace RevOnRental.Controllers
             return Ok(userDetails);
         }
         //updateUser
-        [HttpPut("{userId}")]
+        [HttpPut("update-user-details/{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] UpdateUserDto updateUserDto)
         {
             try

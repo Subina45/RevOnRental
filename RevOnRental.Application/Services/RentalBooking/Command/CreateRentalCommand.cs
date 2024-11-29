@@ -19,7 +19,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
         public int VehicleId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public decimal TotalPrice { get; set; }
+        
     }
     public class CreateRentalHandler : IRequestHandler<CreateRentalCommand, NotificationDto>
     {
