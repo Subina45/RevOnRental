@@ -5,6 +5,8 @@ using RevOnRental.Infrastructure.Identity;
 using System.Reflection;
 using RevOnRental.Application;
 using RevOnRental.SignalR;
+using RevOnRental.SignalR.Implementations;
+using RevOnRental.SignalR.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,12 +34,13 @@ var jwtConfig = new JwtIssuerOptions
 };
 
 var jwtPrivateKey = builder.Configuration["JwtConfig:Key"];
-builder.Services.AddIdentityInfrastructure();
-builder.Services.AddIdentityAuthInfrastructure(jwtPrivateKey, jwtConfig);
+
+
 IServiceCollection services = builder.Services;
 
 
 services.RegisterApplicationDependencyInjection(Assembly.GetExecutingAssembly());
+services.AddTransient<IUserConnectionManager, UserConnectionManager>();
 
 // Add services to the container.
 
@@ -57,19 +60,18 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        policy.WithOrigins(allowedOrigins)
-              .WithMethods(allowedMethods)
-              .WithHeaders(allowedHeaders)
-              .AllowCredentials();
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
-builder.Services.AddSignalR(options =>
-{
-    options.EnableDetailedErrors = true;
-    options.KeepAliveInterval = TimeSpan.FromMinutes(2);
-}).AddAzureSignalR();
 
+
+builder.Services.AddIdentityInfrastructure();
+builder.Services.AddIdentityAuthInfrastructure(jwtPrivateKey, jwtConfig);
+
+builder.Services.AddSignalR();
 
 
 var app = builder.Build();
@@ -91,9 +93,8 @@ app.UseCors("AllowSpecificOrigins");
 
 app.MapControllers();
 
-app.UseAzureSignalR(routes =>
-{
-    routes.MapHub<MessageHub>("/message");
-});
+app.MapHub<MessageHub>("/message");
+app.UseWebSockets();
+
 
 app.Run();

@@ -9,10 +9,10 @@ namespace RevOnRental.SignalR.Implementations
 {
     public class UserConnectionManager : IUserConnectionManager
     {
-        private static Dictionary<Guid, HashSet<string>> userConnectionMap = new Dictionary<Guid, HashSet<string>>();
+        private static Dictionary<int, HashSet<string>> userConnectionMap = new Dictionary<int, HashSet<string>>();
         private static string userConnectionMapLocker = string.Empty;
 
-        public void KeepUserConnection(Guid userId, string connectionId)
+        public void KeepUserConnection(int userId, string connectionId)
         {
             lock (userConnectionMapLocker)
             {
@@ -43,7 +43,7 @@ namespace RevOnRental.SignalR.Implementations
             }
         }
 
-        public HashSet<string> GetUserConnections(Guid userId)
+        public HashSet<string> GetUserConnections(int userId)
         {
             var conn = new HashSet<string>();
             lock (userConnectionMapLocker)
@@ -53,6 +53,6 @@ namespace RevOnRental.SignalR.Implementations
             return conn;
         }
 
-        public IEnumerable<Guid> OnlineUsers { get { return userConnectionMap.Keys; } }
+        public IEnumerable<int> OnlineUsers { get { return userConnectionMap.Keys; } }
     }
 }

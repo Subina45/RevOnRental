@@ -31,7 +31,7 @@ namespace RevOnRental.Infrastructure.Identity
 
         public static void AddIdentityAuthInfrastructure(this IServiceCollection services, string privateKey, JwtIssuerOptions config)
         {
-            SymmetricSecurityKey _signingKey = new(Encoding.ASCII.GetBytes(privateKey));
+            SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(privateKey));
 
             //Configure JwtIssuerOptions
             services.Configure<JwtIssuerOptions>(options =>
@@ -62,8 +62,29 @@ namespace RevOnRental.Infrastructure.Identity
                 options.ClaimsIssuer = config.Issuer;
                 options.TokenValidationParameters = tokenValidationParamenter;
                 options.SaveToken = true;
+                // Allow SignalR to receive token in query string
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        //Console.WriteLine($"Access Token: {accessToken}");
 
-               
+                        //var path = context.HttpContext.Request.Path;
+                        context.Token = accessToken;
+
+                        //if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/message"))
+                        //{
+                        //}
+                        //else
+                        //{
+                        //    Console.WriteLine("Access token is missing or invalid path.");
+                        //}
+
+                        return Task.CompletedTask;
+                    }
+                };
+
             });
 
 

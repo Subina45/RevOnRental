@@ -91,11 +91,11 @@ namespace RevOnRental.Controllers
             {
                 var result = await _authService.LoginAsync(model);
 
-                var returnSignalObject = new
-                {
-                    update="signalr works"
-                };
-                await _messageHub.Clients.All.SendAsync("NotificationSend", returnSignalObject);
+                //var returnSignalObject = new
+                //{
+                //    update="signalr works"
+                //};
+                //await _messageHub.Clients.All.SendAsync("NotificationSend", returnSignalObject);
 
                 return Ok(result);
             }

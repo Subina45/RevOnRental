@@ -8,12 +8,12 @@ namespace RevOnRental.SignalR.Interfaces
 {
     public interface IUserConnectionManager
     {
-        void KeepUserConnection(Guid userId, string connectionId);
+        void KeepUserConnection(int userId, string connectionId);
 
         void RemoveUserConnection(string connectionId);
 
-        HashSet<string> GetUserConnections(Guid userId);
+        HashSet<string> GetUserConnections(int userId);
 
-        IEnumerable<Guid> OnlineUsers { get; }
+        IEnumerable<int> OnlineUsers { get; }
     }
 }
