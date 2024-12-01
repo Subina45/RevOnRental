@@ -24,11 +24,10 @@ namespace RevOnRental.Controllers
             return Ok(availableVehicles);
         }
 
-        [HttpGet("business-details/{businessId}")]
-        public async Task<ActionResult<BusinessDetailsDto>> GetBusinessDetails(int businessId)
+        [HttpPost("business-details")]
+        public async Task<ActionResult<BusinessDetailsDto>> GetBusinessDetails([FromBody]GetBusinessDetailsQuery requestDto)
         {
-            var query = new GetBusinessDetailsQuery{ BusinessId=businessId};
-            var businessDetails = await Mediator.Send(query);
+            var businessDetails = await Mediator.Send(requestDto);
             return Ok(businessDetails);
         }
 
@@ -81,7 +80,7 @@ namespace RevOnRental.Controllers
 
 
 
-        [HttpGet("vehicle-type-details")]
+        [HttpPost("vehicle-type-details")]
         public async Task<ActionResult<List<VehicleTypeDetailsDto>>> GetVehicleTypeDetails(GetVehicleTypeDetailsQuery requestDto)
         {
             var vehicleTypeDetails = await Mediator.Send(requestDto);
