@@ -67,6 +67,11 @@ namespace RevOnRental.Application.Services.Notifications.Command
                 notification.UserId = vehicleDet.User.Id;
                 notification.Message = $"Your request for renting {vehicleDet.Vehicle.Name} from {request.StartDate} to {request.EndDate} has been accepted. Please proceed for payment";
             }
+            else if (request.Type == NotificationType.RentalCancelled)
+            {
+                notification.BusinessId = vehicleDet.Business.Id; 
+                notification.Message = $"{vehicleDet.User.Name}  cancelled their booking request for {vehicleDet.Vehicle.Name}.";
+            }
             else if (request.Type == NotificationType.PaymentSuccessful)
             {
                 notification.BusinessId = vehicleDet.Business.Id;

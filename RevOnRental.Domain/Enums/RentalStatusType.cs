@@ -10,6 +10,7 @@ namespace RevOnRental.Domain.Enums
     {
         Pending,
         Accepted,
+        Rejected,
         Cancelled,
         Confirmed,
         Completed
