@@ -32,10 +32,10 @@ namespace RevOnRental.Application.Services.Notifications.Queries
 
 
             if (request.BusinessId.HasValue)
-                return _context.Notifications.Where(n => n.BusinessId == request.BusinessId.Value && !n.IsNew).Count();
+                return _context.Notifications.Where(n => n.BusinessId == request.BusinessId.Value && n.IsNew).Count();
 
             if (request.UserId.HasValue)
-                return _context.Notifications.Where(n => n.UserId == request.UserId.Value && !n.IsNew).Count();
+                return _context.Notifications.Where(n => n.UserId == request.UserId.Value && n.IsNew).Count();
 
             return 0;
         }

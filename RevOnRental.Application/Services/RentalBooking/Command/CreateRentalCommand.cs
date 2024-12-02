@@ -107,6 +107,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                 {
                     UserId = request.UserId,
                     VehicleId = request.VehicleId,
+                    RentalId=rental.Id,
                     StartDate = request.StartDateTime,
                     EndDate = request.EndDateTime,
                     Type = NotificationType.RentalRequest

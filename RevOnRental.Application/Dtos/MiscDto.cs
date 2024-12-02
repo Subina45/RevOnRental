@@ -11,7 +11,7 @@ namespace RevOnRental.Application.Dtos
         public BaseDto User { get; set; }
         public BaseDto Business { get; set; }
         public BaseDto Vehicle { get; set; }
-
+        public int RentalId { get; set; }
     }
 
     public class BaseDto
