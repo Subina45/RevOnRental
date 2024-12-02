@@ -81,7 +81,7 @@ namespace RevOnRental.Controllers
 
 
         [HttpPost("vehicle-type-details")]
-        public async Task<ActionResult<List<VehicleTypeDetailsDto>>> GetVehicleTypeDetails(GetVehicleTypeDetailsQuery requestDto)
+        public async Task<ActionResult<List<VehicleTypeDetailsDto>>> GetVehicleTypeDetails([FromBody] GetVehicleTypeDetailsQuery requestDto)
         {
             var vehicleTypeDetails = await Mediator.Send(requestDto);
             return Ok(vehicleTypeDetails);

@@ -36,6 +36,8 @@ namespace RevOnRental.Application.Services.Vehicles.Queries
                 .Include(v => v.RentalCharges).GroupBy(v => new { v.Brand, v.Model })
                 .Select(group => new VehicleTypeDetailsDto
                 {
+                    id = group.First().Id,  // Changed from group.Key.id to group.First().Id
+                    VehicleType = (int)request.VehicleType,
                     Brand = group.Key.Brand,
                     Model = group.Key.Model,
                     TotalQuantity = group.Sum(v => v.NumberOfVehicle),

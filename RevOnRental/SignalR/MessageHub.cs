@@ -36,10 +36,10 @@ namespace RevOnRental.SignalR
                 var test = Context.User.Claims.FirstOrDefault();
                 //await base.OnConnectedAsync();
 
-                int userId = int.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
-                _userConnectionManager.KeepUserConnection(userId, Context.ConnectionId);
-                await Clients.All.SendAsync("onConnectedAsync", $"{Context.ConnectionId}");
-                await Clients.All.SendAsync("onUserActive", userId);
+                // int userId = int.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
+                // _userConnectionManager.KeepUserConnection(userId, Context.ConnectionId);
+                //await Clients.All.SendAsync("onConnectedAsync", $"{Context.ConnectionId}");
+                //await Clients.All.SendAsync("onUserActive", userId);
             }
             catch (Exception ex)
             {
@@ -55,13 +55,13 @@ namespace RevOnRental.SignalR
             /// </summary>
             public override async Task OnDisconnectedAsync(Exception exception)
             {
-            Guid userId = Guid.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
-            //get the connectionId
-            var connectionId = Context.ConnectionId;
-            _userConnectionManager.RemoveUserConnection(connectionId);
-            var value = await Task.FromResult(0);
-            await Clients.All.SendAsync("onUserInActive", userId);
-        }
+                //Guid userId = Guid.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
+                ////get the connectionId
+                //var connectionId = Context.ConnectionId;
+                //_userConnectionManager.RemoveUserConnection(connectionId);
+                //var value = await Task.FromResult(0);
+                //await Clients.All.SendAsync("onUserInActive", userId);
+            }
 
             /// <summary>
             /// get all online user

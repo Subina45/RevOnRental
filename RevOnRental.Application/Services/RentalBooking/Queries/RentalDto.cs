@@ -9,6 +9,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Queries
 {
     public class RentalDto
     {
+        public int Id { get; set; }
         public int UserID { get; set; }
         public string UserName { get; set; }
         public int VehicleId { get; set; }

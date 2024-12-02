@@ -58,6 +58,7 @@ namespace RevOnRental.Application.Services.Businesses.Queries
                 AverageRating = averageRating,
                 AvailableVehicles = business.Vehicles.Select(v => new VehicleDto
                 {
+                    Id = v.Id,
                     Model = v.Model,
                     Brand = v.Brand,
                     AvailabilityStatus = v.AvailabilityStatus,
