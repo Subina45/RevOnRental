@@ -71,7 +71,15 @@ namespace RevOnRental.Controllers
             return Ok(result);
         }
 
-        [HttpPost("confirm")]
+        [HttpPost("cancel-rental")]
+        public async Task<ActionResult<bool>> CancelRental([FromBody] CancelRentalCommand cancelRentalCommand)
+        {
+            var result = await Mediator.Send(cancelRentalCommand);
+            await BroadCastUpdateSignal(result);
+
+            return Ok(result);
+        }
+        [HttpPost("confirm-rental")]
         public async Task<ActionResult<bool>> ConfirmRental([FromBody] ConfirmRentalCommand command)
         {
             var result = await Mediator.Send(command);
@@ -82,7 +90,7 @@ namespace RevOnRental.Controllers
         }
 
         // Complete Rental
-        [HttpPost("complete")]
+        [HttpPost("complete-rental")]
         public async Task<ActionResult<bool>> CompleteRental([FromBody] CompleteRentalCommand command)
         {
 
