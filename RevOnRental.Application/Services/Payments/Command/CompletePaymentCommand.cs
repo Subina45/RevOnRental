@@ -12,11 +12,10 @@ namespace RevOnRental.Application.Services.Payments.Command
 {
     public class CompletePaymentCommand : IRequest<bool>
     {
+        public int RentalId { get; set; }
         public string TransactionId { get; set; }
         public string tidx { get; set; }
         public string pidx { get; set; }
-
-        public DateTime UpdatedDate { get; set; }
     }
     public class CompletePaymentCommandHandler : IRequestHandler<CompletePaymentCommand, bool>
     {
@@ -32,7 +31,7 @@ namespace RevOnRental.Application.Services.Payments.Command
         public async Task<bool> Handle(CompletePaymentCommand request, CancellationToken cancellationToken)
         {
             var payment = await _context.Payments
-                .FirstOrDefaultAsync(p => p.TransactionId == request.TransactionId, cancellationToken);
+                .FirstOrDefaultAsync(p => p.RentalId == request.RentalId, cancellationToken);
 
             if (payment == null)
             {
@@ -43,7 +42,7 @@ namespace RevOnRental.Application.Services.Payments.Command
             payment.TransactionId = request.TransactionId;
             payment.tidx = request.tidx;
             payment.pidx = request.pidx;
-            payment.UpdatedDate = request.UpdatedDate;
+            payment.UpdatedDate = DateTime.Now;
 
 
             await _context.SaveChangesAsync(cancellationToken);

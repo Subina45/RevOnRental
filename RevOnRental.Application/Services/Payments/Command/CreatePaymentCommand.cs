@@ -15,6 +15,7 @@ namespace RevOnRental.Application.Services.Payments.Command
         public int UserId { get; set; }
         public int VehicleId { get; set; }
         public int BusinessId { get; set; }
+        public int RentalId { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime PaymentDate { get; set; }
     }
@@ -31,22 +32,32 @@ namespace RevOnRental.Application.Services.Payments.Command
 
         public async Task<int> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
         {
-            var payment = new Payment
+            try
             {
-                UserId = request.UserId,
-                VehicleId = request.VehicleId,
-                BusinessId = request.BusinessId,
-                PaymentStatus = PaymentStatus.Pending,
-                TotalPrice = request.TotalPrice,
-                PaymentDate = request.PaymentDate,
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now
-            };
+                var payment = new Payment
+                {
+                    UserId = request.UserId,
+                    VehicleId = request.VehicleId,
+                    BusinessId = request.BusinessId,
+                    PaymentStatus = PaymentStatus.Pending,
+                    PaymentType=PaymentType.Online,
+                    TotalPrice = request.TotalPrice,
+                    PaymentDate = request.PaymentDate,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
+                };
 
-            _context.Payments.Add(payment);
-            await _context.SaveChangesAsync(cancellationToken);
+                _context.Payments.Add(payment);
+                await _context.SaveChangesAsync(cancellationToken);
 
-            return payment.Id;
+                return payment.Id;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 

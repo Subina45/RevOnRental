@@ -18,11 +18,11 @@ namespace RevOnRental.Domain.Models
         public PaymentStatus PaymentStatus { get; set; }
         public DateTime PaymentDate { get; set; }
         public decimal TotalPrice { get; set; }
-        public string tidx { get; set; }
-        public string pidx { get; set; }
-        public string TransactionId { get; set; }
-
-
+        public string? tidx { get; set; }
+        public string? pidx { get; set; }
+        public string? TransactionId { get; set; }
+        public int RentalId { get; set; }
+        public Rental Rental { get; set; }
         public User User { get; set; }
         public Vehicle Vehicle { get; set; }
         public Business Business { get; set; }

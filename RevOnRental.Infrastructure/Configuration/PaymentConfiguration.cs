@@ -22,18 +22,23 @@ namespace RevOnRental.Infrastructure.Configuration
             // Relationship with User
             builder.HasOne(p => p.User)
                 .WithMany(u => u.Payments)
-                .HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade); ;
+                .HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade); 
 
             // Relationship with Business
             builder.HasOne(p => p.Business)
                 .WithMany(b => b.Payments)
-                .HasForeignKey(p => p.BusinessId).OnDelete(DeleteBehavior.Cascade); ;
+                .HasForeignKey(p => p.BusinessId).OnDelete(DeleteBehavior.Cascade); 
 
             // Optional relationship with Vehicle
             builder.HasOne(p => p.Vehicle)
                 .WithMany(v => v.Payments)
-                .HasForeignKey(p => p.VehicleId).OnDelete(DeleteBehavior.Cascade); ;
-                
+                .HasForeignKey(p => p.VehicleId).OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(p => p.Rental)
+               .WithOne(v => v.Payment)
+               .HasForeignKey<Payment>(p => p.RentalId
+               ).OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 

@@ -19,6 +19,7 @@ namespace RevOnRental.Domain.Models
         public RentalStatusType RentalStatus { get; set; } // Pending, Active, Completed, Cancelled
         public virtual User User { get; set; }
         public virtual Vehicle Vehicle { get; set; }
+        public Payment Payment { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

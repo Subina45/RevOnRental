@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RevOnRental.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RevOnRental.Infrastructure.Data;
 namespace RevOnRental.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241203152754_paymentupdate")]
+    partial class paymentupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,9 +312,6 @@ namespace RevOnRental.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
-                    b.Property<int>("RentalId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -336,9 +336,6 @@ namespace RevOnRental.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
-
-                    b.HasIndex("RentalId")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -745,12 +742,6 @@ namespace RevOnRental.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RevOnRental.Domain.Models.Rental", "Rental")
-                        .WithOne("Payment")
-                        .HasForeignKey("RevOnRental.Domain.Models.Payment", "RentalId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("RevOnRental.Domain.Models.User", "User")
                         .WithMany("Payments")
                         .HasForeignKey("UserId")
@@ -764,8 +755,6 @@ namespace RevOnRental.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
-
-                    b.Navigation("Rental");
 
                     b.Navigation("User");
 
@@ -878,12 +867,6 @@ namespace RevOnRental.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("RevOnRental.Domain.Models.Rental", b =>
-                {
-                    b.Navigation("Payment")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("RevOnRental.Domain.Models.User", b =>

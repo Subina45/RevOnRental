@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RevOnRental.Application.Dtos;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.Payments.Command;
+using RevOnRental.Application.Services.Users.Queries;
 using System.Text;
 
 namespace RevOnRental.Controllers
@@ -13,17 +14,15 @@ namespace RevOnRental.Controllers
     public class PaymentController : BaseController
     {
         private readonly IMediator _mediator;
-        private readonly IUserService _userService; 
 
-        public PaymentController(IMediator mediator, IUserService userService)
+        public PaymentController(IMediator mediator)
         {
             _mediator = mediator;
-            _userService = userService;
         }
         [HttpPost]
         public async Task<IActionResult> InitiatePayment([FromBody] PaymentRequestDto paymentRequest)
         {
-            var user = await _userService.GetUserDetailsQuery(paymentRequest.UserId);
+            var user = await _mediator.Send( new GetUserDetailsQuery { UserId = paymentRequest.UserId });
             if (user == null)
             {
                 return BadRequest("User not found.");
@@ -35,8 +34,9 @@ namespace RevOnRental.Controllers
                 UserId = paymentRequest.UserId,
                 VehicleId = paymentRequest.VehicleId,
                 BusinessId = paymentRequest.BusinessId,
+                RentalId=int.Parse(paymentRequest.PurchaseRentalId),
                 TotalPrice = decimal.Parse(paymentRequest.Amount),
-                PaymentDate = DateTime.UtcNow
+                PaymentDate = DateTime.Now
             };
             var paymentId = await _mediator.Send(createPaymentCommand);
 
@@ -75,15 +75,10 @@ namespace RevOnRental.Controllers
         }
 
         [HttpPost("complete")]
-        public async Task<IActionResult> CompletePayment([FromBody] CompletePaymentDto completePaymentDto)
+        public async Task<IActionResult> CompletePayment([FromBody] CompletePaymentCommand completePaymentDto)
         {
-            // Complete Payment command
-            var completePaymentCommand = new CompletePaymentCommand
-            {
-                TransactionId = completePaymentDto.TransactionId,
-                UpdatedDate = DateTime.Now
-            };
-            var result = await _mediator.Send(completePaymentCommand);
+            
+            var result = await _mediator.Send(completePaymentDto);
 
             if (!result)
             {
