@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RevOnRental.Domain.Constants;
 
 namespace RevOnRental.Controllers
 {
@@ -13,6 +14,8 @@ namespace RevOnRental.Controllers
     {
         private IMediator _mediator;
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        protected int CurrentUserId => int.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
+
 
     }
 }

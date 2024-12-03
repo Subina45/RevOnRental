@@ -19,6 +19,7 @@ namespace RevOnRental.Application.Services.Notifications.Command
     {
         public int UserId { get; set; }
         public int VehicleId { get; set; }
+        public int RentalId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
@@ -34,12 +35,15 @@ namespace RevOnRental.Application.Services.Notifications.Command
         }
         public async Task<NotificationDto> Handle(CreateNotificationCommand request, CancellationToken cancellationToken)
         {
-            var vehicleDet = await _context.Vehicles.Include(x => x.Business).Where(x => x.Id == request.VehicleId).Select(x => new MiscDto
-            {
-                Vehicle = new BaseDto { Id = x.Id, Name = x.Brand + " " + x.Model },
-                Business = new BaseDto { Id = x.Business.Id, Name = x.Business.BusinessName },
-
-            }).FirstOrDefaultAsync();
+            var vehicleDet = await _context.Vehicles
+                .Include(x => x.Business)
+                .Where(x => x.Id == request.VehicleId)
+                .Select(x => new MiscDto
+                {
+                    Vehicle = new BaseDto { Id = x.Id, Name = x.Brand + " " + x.Model },
+                    Business = new BaseDto { Id = x.Business.Id, Name = x.Business.BusinessName },
+                    RentalId = request.RentalId
+                }).FirstOrDefaultAsync();
             var userDet = await _context.Users.Where(x => x.Id == request.UserId).FirstOrDefaultAsync();
             vehicleDet.User = new BaseDto { Id = userDet.Id, Name = userDet.FullName };
 
@@ -93,7 +97,7 @@ namespace RevOnRental.Application.Services.Notifications.Command
                 CreatedDate = notification.CreatedDate,
                 Message = notification.Message,
                 Misc = vehicleDet,
-                NotificationType= notification.Type
+                NotificationType= notification.Type,
             };
         }
 

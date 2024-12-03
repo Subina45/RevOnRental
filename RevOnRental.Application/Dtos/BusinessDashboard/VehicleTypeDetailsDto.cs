@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace RevOnRental.Application.Dtos.BusinessDashboard
 {
     public class VehicleTypeDetailsDto
-    {
+    {   public int id { get; set; }
+        public int VehicleType { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public int TotalQuantity { get; set; }

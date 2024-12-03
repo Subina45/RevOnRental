@@ -32,6 +32,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Queries
                 .Include(r => r.Vehicle)
                 .Where(r => r.Vehicle.BusinessID == request.BusinessId).Select(x => new RentalDto
                 {
+                    Id = x.Id,
                     UserID = x.UserID,
                     UserName = x.User.FullName,
                     VehicleId = x.VehicleId,

@@ -55,7 +55,7 @@ namespace RevOnRental.SignalR
             /// </summary>
             public override async Task OnDisconnectedAsync(Exception exception)
             {
-            Guid userId = Guid.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
+            int userId = int.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
             //get the connectionId
             var connectionId = Context.ConnectionId;
             _userConnectionManager.RemoveUserConnection(connectionId);

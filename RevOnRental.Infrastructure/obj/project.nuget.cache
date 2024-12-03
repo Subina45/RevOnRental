@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0PXfIdI7fbHMt8DDPg36c5Lm1FGRadM3faofPKCfHrXI1OH4afWYlM15h4iPP+4qQcIunji+IOy+36oWMa2MEw==",
+  "dgSpecHash": "JQG2Gi9RRUFhxJP8Kfs1toAk1qgy/pEPTktedr0Gt3H2gOLxEMujT3nN573TZYalZbrLlTjMHMiGj95wf9Q0PQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\subin\\Desktop\\RevOnRental Api\\RevOnRental.Infrastructure\\RevOnRental.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -40,7 +40,7 @@
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.20\\microsoft.entityframeworkcore.design.7.0.20.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.20\\microsoft.entityframeworkcore.relational.7.0.20.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.20\\microsoft.entityframeworkcore.sqlserver.7.0.20.nupkg.sha512",
-    "C:\\Users\\subin\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.20\\microsoft.entityframeworkcore.tools.7.0.20.nupkg.sha512",
+    "C:\\Users\\subin\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\9.0.0\\microsoft.entityframeworkcore.tools.9.0.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\subin\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

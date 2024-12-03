@@ -60,7 +60,8 @@ namespace RevOnRental.Application.Services.Businesses.Queries
                         .Select(g => g.First())
                         .ToList();
                     var result = groupedBusinesses.Select(v => new VehicleAvailabilityDto
-                    {
+                    {   
+                        BusinessId = v.Business.Id,
                         BusinessName = v.Business.BusinessName,
                         Distance = v.Business != null ? DistanceCalculator.GetDistance(
                         request.Latitude, request.Longitude,

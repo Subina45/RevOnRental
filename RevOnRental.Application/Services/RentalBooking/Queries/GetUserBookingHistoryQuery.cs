@@ -42,6 +42,12 @@ namespace RevOnRental.Application.Services.RentalBooking.Queries
                     VehicleId=x.VehicleId,
                     TotalPrice=x.TotalPrice,
                     CreatedDate= x.CreatedDate,
+                    Photo = new PhotoDto
+                    {
+                        FileContent = x.Vehicle.FileContent,
+                        ContentType = x.Vehicle.ContentType,
+                        FileName = $"{x.Vehicle.Brand}-{x.Vehicle.Model}.jpg",
+                    }
                 })
                 .OrderByDescending(r => r.CreatedDate)
                 .ToListAsync();
