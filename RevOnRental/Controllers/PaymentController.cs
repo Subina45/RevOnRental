@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RevOnRental.Application.Dtos;
+using RevOnRental.Application.Interfaces;
+using RevOnRental.Application.Services.Payments.Command;
 using System.Text;
 
 namespace RevOnRental.Controllers
@@ -9,10 +12,33 @@ namespace RevOnRental.Controllers
     [Route("api/[controller]")]
     public class PaymentController : BaseController
     {
+        private readonly IMediator _mediator;
+        private readonly IUserService _userService; 
+
+        public PaymentController(IMediator mediator, IUserService userService)
+        {
+            _mediator = mediator;
+            _userService = userService;
+        }
         [HttpPost]
         public async Task<IActionResult> InitiatePayment([FromBody] PaymentRequestDto paymentRequest)
         {
+            var user = await _userService.GetUserDetailsQuery(paymentRequest.UserId);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
             var url = "https://a.khalti.com/api/v2/epayment/initiate/";
+
+            var createPaymentCommand = new CreatePaymentCommand
+            {
+                UserId = paymentRequest.UserId,
+                VehicleId = paymentRequest.VehicleId,
+                BusinessId = paymentRequest.BusinessId,
+                TotalPrice = decimal.Parse(paymentRequest.Amount),
+                PaymentDate = DateTime.UtcNow
+            };
+            var paymentId = await _mediator.Send(createPaymentCommand);
 
             var payload = new
             {
@@ -23,9 +49,9 @@ namespace RevOnRental.Controllers
                 purchase_order_name = paymentRequest.PurchaseRentalId,
                 customer_info = new
                 {
-                    name = paymentRequest.CustomerName,
-                    email = paymentRequest.CustomerEmail,
-                    phone = paymentRequest.CustomerPhone
+                    name = user.FullName,
+                    email = user.Email,
+                    phone = user.ContactNumber
                 }
             };
 
@@ -47,5 +73,24 @@ namespace RevOnRental.Controllers
         {
             return Ok();
         }
-}
+
+        [HttpPost("complete")]
+        public async Task<IActionResult> CompletePayment([FromBody] CompletePaymentDto completePaymentDto)
+        {
+            // Complete Payment command
+            var completePaymentCommand = new CompletePaymentCommand
+            {
+                TransactionId = completePaymentDto.TransactionId,
+                UpdatedDate = DateTime.Now
+            };
+            var result = await _mediator.Send(completePaymentCommand);
+
+            if (!result)
+            {
+                return BadRequest("Failed to complete payment.");
+            }
+
+            return Ok("Payment completed successfully.");
+        }
+    }
 }
