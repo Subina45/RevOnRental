@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using RevOnRental.Application.Interfaces;
 using RevOnRental.Application.Services.Notifications.Command;
 using RevOnRental.Application.Services.Notifications.Queries;
+using RevOnRental.Domain.Enums;
 using RevOnRental.Domain.Models;
 
 namespace RevOnRental.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class NotificationsController : ControllerBase
+    public class NotificationsController : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -49,15 +50,22 @@ namespace RevOnRental.Controllers
 
         // Get Unread Notification Count
         [HttpGet("notifications/unread-count")]
-        public async Task<IActionResult> GetNotificationCount([FromQuery] int? userId, [FromQuery] int? businessId)
+        public async Task<IActionResult> GetNotificationCount([FromQuery] int id)
         {
-            if (userId == null && businessId == null)
-                return BadRequest("Either userId or businessId must be provided.");
+            if (CurrentRole == RoleEnum.Business.ToString().ToLower())
+            {
+                var query = new GetNotificationCountQuery { BusinessId = id };
+                var count = await _mediator.Send(query);
 
-            var query = new GetNotificationCountQuery { UserId = userId, BusinessId = businessId };
-            var count = await _mediator.Send(query);
+                return Ok(new { UnreadCount = count });
+            }else
+            {
+                var query = new GetNotificationCountQuery { UserId = id};
+                var count = await _mediator.Send(query);
 
-            return Ok(new { UnreadCount = count });
+                return Ok(new { UnreadCount = count });
+            }
+            
         }
 
         [HttpPost("notifications/mark-as-read")]

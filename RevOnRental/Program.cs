@@ -71,8 +71,18 @@ builder.Services.AddCors(options =>
 builder.Services.AddIdentityInfrastructure();
 builder.Services.AddIdentityAuthInfrastructure(jwtPrivateKey, jwtConfig);
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+    options.KeepAliveInterval = TimeSpan.FromMinutes(2);
+});
 
+//services.AddMemoryCache();
+//services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromMinutes(60);
+//    options.Cookie.HttpOnly = true;
+//});
 
 var app = builder.Build();
 
@@ -84,6 +94,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//app.UseSession();
 
 app.UseAuthentication();
 

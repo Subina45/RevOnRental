@@ -55,12 +55,12 @@ namespace RevOnRental.SignalR
             /// </summary>
             public override async Task OnDisconnectedAsync(Exception exception)
             {
-            int userId = int.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
-            //get the connectionId
-            var connectionId = Context.ConnectionId;
-            _userConnectionManager.RemoveUserConnection(connectionId);
-            var value = await Task.FromResult(0);
-            await Clients.All.SendAsync("onUserInActive", userId);
+                int userId = int.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == AuthConstants.JwtId).Value);
+                //get the connectionId
+                var connectionId = Context.ConnectionId;
+                //_userConnectionManager.RemoveUserConnection(connectionId);
+                var value = await Task.FromResult(0);
+                await Clients.All.SendAsync("onUserInActive", userId);
         }
 
             /// <summary>

@@ -68,21 +68,15 @@ namespace RevOnRental.Infrastructure.Identity
                     OnMessageReceived = context =>
                     {
                         var accessToken = context.Request.Query["access_token"];
-                        //Console.WriteLine($"Access Token: {accessToken}");
-
-                        //var path = context.HttpContext.Request.Path;
-                        context.Token = accessToken;
-
-                        //if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/message"))
-                        //{
-                        //}
-                        //else
-                        //{
-                        //    Console.WriteLine("Access token is missing or invalid path.");
-                        //}
-
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken)
+                            && path.StartsWithSegments("/message"))
+                        {
+                            context.Token = accessToken;
+                        }
                         return Task.CompletedTask;
                     }
+                   
                 };
 
             });

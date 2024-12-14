@@ -39,7 +39,7 @@ namespace RevOnRental.Application.Services.RentalBooking.Command
                 if (rental == null)
                     throw new ArgumentException("Rental not found.");
 
-                if (rental.RentalStatus != RentalStatusType.Pending)
+                if (rental.RentalStatus != RentalStatusType.Accepted)
                     throw new InvalidOperationException("Rental cannot be Cancelled in its current state.");
 
                 // Update rental status

@@ -70,12 +70,12 @@ namespace RevOnRental.Infrastructure.Data
 
                 if (entry.State == EntityState.Added)
                 {
-                    entity.CreatedDate = DateTime.UtcNow;
-                    entity.UpdatedDate = DateTime.UtcNow;
+                    entity.CreatedDate = DateTime.Now;
+                    entity.UpdatedDate = DateTime.Now;
                 }
                 else if (entry.State == EntityState.Modified)
                 {
-                    entity.UpdatedDate = DateTime.UtcNow;
+                    entity.UpdatedDate = DateTime.Now;
                 }
             }
         }

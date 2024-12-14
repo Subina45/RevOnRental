@@ -28,6 +28,7 @@ namespace RevOnRental.Controllers
                 return BadRequest("User not found.");
             }
             var url = "https://a.khalti.com/api/v2/epayment/initiate/";
+            var amountInPaisa = (decimal.Parse(paymentRequest.Amount)*100).ToString();
 
             var createPaymentCommand = new CreatePaymentCommand
             {
@@ -44,7 +45,7 @@ namespace RevOnRental.Controllers
             {
                 return_url = "http://localhost:4200/usernotification",
                 website_url = "https://localhost:7275",
-                amount = paymentRequest.Amount,
+                amount = amountInPaisa,
                 purchase_order_id = paymentRequest.PurchaseRentalId,
                 purchase_order_name = paymentRequest.PurchaseRentalId,
                 customer_info = new

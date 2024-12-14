@@ -39,6 +39,7 @@ namespace RevOnRental.Application.Services.Payments.Command
                     UserId = request.UserId,
                     VehicleId = request.VehicleId,
                     BusinessId = request.BusinessId,
+                    RentalId = request.RentalId,
                     PaymentStatus = PaymentStatus.Pending,
                     PaymentType=PaymentType.Online,
                     TotalPrice = request.TotalPrice,
