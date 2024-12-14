@@ -35,6 +35,7 @@ namespace RevOnRental.Application.Services.Notifications.Command
                 throw new ArgumentException("Notification not found or does not belong to the specified UserId/BusinessId.");
 
             notification.IsRead = true;
+            notification.IsNew = false;
             _context.Notifications.Update(notification);
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RevOnRental.Application.Interfaces;
+using RevOnRental.Application.Services.RentalBooking.Command;
 using RevOnRental.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,14 @@ namespace RevOnRental.Application.Services.Payments.Command
             payment.tidx = request.tidx;
             payment.pidx = request.pidx;
             payment.UpdatedDate = DateTime.Now;
-
+            await _mediator.Send(
+                new ConfirmRentalCommand
+                {
+                     PaymentType=PaymentType.Online,
+                      RentalId=request.RentalId,
+                }
+                );
+            
 
             await _context.SaveChangesAsync(cancellationToken);
 
